@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AeroVenture — Business Aviation Platform</title>
+<meta name="description" content="AeroVenture — Business Aviation Platform by TFM. Buy jets, sign leases, and fly charters.">
+<meta name="theme-color" content="#111827">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AeroVenture">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%23111827'/><text x='96' y='130' font-size='100' text-anchor='middle' fill='white'>✈</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#111827;--slate:#1f2937;--mid:#6b7280;--light:#9ca3af;
+  --border:#e5e7eb;--bg:#f9fafb;--white:#fff;
+  --accent:#1d4ed8;--accent-light:#eff6ff;
+  --green:#059669;--green-light:#ecfdf5;
+  --amber:#d97706;--amber-light:#fffbeb;
+  --red:#dc2626;--red-light:#fef2f2;
+  --radius:10px;--radius-lg:14px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--navy);min-height:100vh;font-size:14px;line-height:1.6}
+
+/* ── AUTH ─────────────────────────────────────── */
+#auth-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);padding:20px}
+.auth-wrap{display:grid;grid-template-columns:1fr 1fr;max-width:900px;width:100%;background:var(--white);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.auth-hero{background:var(--navy);padding:52px 44px;display:flex;flex-direction:column;justify-content:space-between}
+.auth-hero-brand{font-family:'Playfair Display',serif;font-size:26px;color:#fff;letter-spacing:-.5px}
+.auth-hero-tag{font-size:11px;color:#9ca3af;text-transform:uppercase;letter-spacing:1px;margin-top:6px}
+.auth-hero-copy{flex:1;display:flex;flex-direction:column;justify-content:center;padding:32px 0}
+.auth-hero-copy h2{font-family:'Playfair Display',serif;font-size:28px;color:#fff;line-height:1.3;margin-bottom:16px}
+.auth-hero-copy p{font-size:13px;color:#9ca3af;line-height:1.7}
+.auth-stats{display:flex;gap:24px;margin-top:36px}
+.auth-stat-val{font-size:20px;font-weight:700;color:#fff}
+.auth-stat-label{font-size:11px;color:#6b7280;margin-top:2px}
+.auth-panel{padding:48px 44px;display:flex;flex-direction:column;justify-content:center}
+.auth-panel h3{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:4px}
+.auth-panel-sub{font-size:13px;color:var(--light);margin-bottom:32px}
+.auth-tabs{display:flex;background:var(--bg);border-radius:8px;padding:4px;gap:2px;margin-bottom:28px}
+.auth-tab{flex:1;padding:9px;text-align:center;font-size:13px;font-weight:500;cursor:pointer;border:none;border-radius:6px;background:transparent;color:var(--mid);transition:all .18s}
+.auth-tab.active{background:var(--white);color:var(--navy);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;font-weight:600;color:var(--mid);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
+.field input{width:100%;padding:10px 13px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none;transition:border .18s;background:var(--white);color:var(--navy);font-family:inherit}
+.field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(29,78,216,.08)}
+.btn-primary{width:100%;padding:12px;background:var(--navy);color:var(--white);border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:background .18s;letter-spacing:.2px;font-family:inherit}
+.btn-primary:hover{background:var(--slate)}
+.auth-msg{font-size:12px;color:var(--red);margin-top:10px;min-height:16px;text-align:center}
+.auth-demo{margin-top:20px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--light);text-align:center}
+.demo-link{color:var(--accent);cursor:pointer;font-weight:500}
+
+/* ── APP SHELL ────────────────────────────────── */
+#app{display:none;min-height:100vh;flex-direction:column}
+
+/* ── TOPBAR ───────────────────────────────────── */
+.topbar{background:var(--white);border-bottom:1px solid var(--border);height:58px;display:flex;align-items:center;padding:0 28px;position:sticky;top:0;z-index:90;gap:24px}
+.tb-brand{font-family:'Playfair Display',serif;font-size:19px;color:var(--navy);letter-spacing:-.3px;white-space:nowrap}
+.tb-nav{display:flex;gap:2px;flex:1}
+.nav-btn{padding:7px 15px;border:none;background:transparent;border-radius:6px;font-size:13px;font-weight:500;color:var(--mid);cursor:pointer;transition:all .18s;white-space:nowrap;font-family:inherit}
+.nav-btn:hover{background:var(--bg);color:var(--navy)}
+.nav-btn.active{background:var(--navy);color:var(--white)}
+.tb-right{display:flex;align-items:center;gap:12px;margin-left:auto}
+.balance-chip{background:var(--green-light);border:1px solid #6ee7b7;border-radius:20px;padding:5px 13px;font-size:13px;font-weight:600;color:#065f46;white-space:nowrap}
+.avatar-btn{width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;border:none;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:.5px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.avatar-btn:hover{background:var(--slate)}
+
+/* ── MAIN CONTENT ─────────────────────────────── */
+.main{flex:1;padding:28px 28px 48px}
+.panel{display:none}
+.panel.active{display:block}
+
+/* ── PAGE HEADER ──────────────────────────────── */
+.page-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;gap:16px;flex-wrap:wrap}
+.page-hdr-left h1{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;color:var(--navy)}
+.page-hdr-left p{font-size:13px;color:var(--light);margin-top:2px}
+.page-hdr-right{display:flex;gap:8px;align-items:center;flex-shrink:0}
+
+/* ── STAT CARDS ───────────────────────────────── */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 22px}
+.stat-label{font-size:11px;font-weight:600;color:var(--light);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.stat-val{font-size:22px;font-weight:700;color:var(--navy)}
+.stat-val.green{color:var(--green)}
+.stat-val.amber{color:var(--amber)}
+.stat-val.blue{color:var(--accent)}
+
+/* ── CARDS ────────────────────────────────────── */
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg)}
+.section-label{font-size:11px;font-weight:600;color:var(--light);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px}
+
+/* ── FLEET ────────────────────────────────────── */
+.fleet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.fleet-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
+.fleet-card-reg{font-size:14px;font-weight:700;color:var(--navy)}
+.fleet-card-type{font-size:11px;color:var(--light);margin-top:2px;margin-bottom:10px}
+.badge{display:inline-block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;padding:3px 8px;border-radius:4px}
+.badge-owned{background:#dcfce7;color:#15803d}
+.badge-leased{background:#fef3c7;color:#92400e}
+.badge-open{background:#e0f2fe;color:#0369a1}
+.badge-contract{background:#f3e8ff;color:#7e22ce}
+.lease-info-row{margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;color:var(--mid)}
+.pay-btn{margin-top:6px;padding:5px 10px;background:var(--amber);color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;transition:opacity .18s}
+.pay-btn:hover{opacity:.85}
+.pay-btn.paid{background:#d1d5db;color:var(--mid);cursor:default}
+
+/* ── ACTIVE CHARTERS ──────────────────────────── */
+.active-charter-item{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.charter-route-title{font-size:14px;font-weight:700;color:var(--navy)}
+.charter-meta-line{font-size:11px;color:var(--light);margin-top:2px}
+.charter-earn{font-size:13px;font-weight:700;color:var(--green);margin-top:8px}
+.complete-btn{margin-top:8px;padding:7px 14px;background:var(--green);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .18s}
+.complete-btn:hover{opacity:.85}
+
+/* ── CHARTER BOARD ────────────────────────────── */
+.filter-bar{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.fchip{padding:6px 14px;border:1px solid var(--border);border-radius:20px;font-size:12px;font-weight:500;background:var(--white);color:var(--mid);cursor:pointer;transition:all .18s;white-space:nowrap}
+.fchip:hover{border-color:#9ca3af}
+.fchip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.charter-table-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:auto}
+.charter-table{width:100%;border-collapse:collapse;min-width:900px}
+.charter-table th{font-size:11px;font-weight:600;color:var(--light);text-transform:uppercase;letter-spacing:.5px;padding:13px 14px;text-align:left;border-bottom:1px solid var(--border);background:var(--bg);white-space:nowrap}
+.charter-table td{padding:13px 14px;font-size:13px;color:var(--navy);border-bottom:1px solid var(--bg);vertical-align:middle}
+.charter-table tbody tr:last-child td{border-bottom:none}
+.charter-table tbody tr:hover td{background:#fafafa}
+.route-dep{font-weight:700;font-size:13px}
+.route-city{font-size:11px;color:var(--light);margin-top:1px}
+.earn-val{font-weight:700;color:var(--green)}
+.exp-val{color:var(--amber)}
+.view-btn{padding:6px 13px;background:var(--navy);color:#fff;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:opacity .18s;white-space:nowrap}
+.view-btn:hover{opacity:.8}
+.view-btn:disabled{background:#e5e7eb;color:var(--mid);cursor:default}
+
+/* ── MARKETPLACE ──────────────────────────────── */
+.market-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mcard{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:box-shadow .18s}
+.mcard:hover{box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.mcard-img{height:130px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:44px;position:relative}
+.mcard-class-badge{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.12);color:#fff;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:4px 9px;border-radius:4px;backdrop-filter:blur(4px)}
+.mcard-body{padding:16px}
+.mcard-name{font-size:14px;font-weight:700;color:var(--navy)}
+.mcard-sub{font-size:12px;color:var(--light);margin-top:1px;margin-bottom:12px}
+.mcard-specs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.mspec-label{font-size:10px;color:var(--light);text-transform:uppercase;letter-spacing:.4px}
+.mspec-val{font-size:13px;font-weight:600;color:var(--navy);margin-top:1px}
+.mcard-desc{font-size:12px;color:var(--light);line-height:1.55;margin-bottom:14px}
+.mcard-prices{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.mcard-buy-price .price-val{font-size:17px;font-weight:700;color:var(--navy)}
+.mcard-buy-price .price-label{font-size:10px;color:var(--light);text-transform:uppercase;letter-spacing:.4px;margin-top:1px}
+.mcard-lease-price .price-val{font-size:14px;font-weight:700;color:var(--amber)}
+.mcard-lease-price .price-label{font-size:10px;color:var(--light);text-transform:uppercase;letter-spacing:.4px;margin-top:1px;text-align:right}
+.buy-btn{width:100%;padding:10px;background:var(--navy);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:6px;transition:background .18s;font-family:inherit}
+.buy-btn:hover{background:var(--slate)}
+.buy-btn:disabled{background:#e5e7eb;color:var(--mid);cursor:default}
+.lease-btn-outline{width:100%;padding:9px;background:var(--white);color:var(--navy);border:1px solid var(--border);border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;transition:background .18s;font-family:inherit}
+.lease-btn-outline:hover{background:var(--bg)}
+.lease-btn-outline:disabled{opacity:.45;cursor:default}
+
+/* ── LEASES PAGE ──────────────────────────────── */
+.lease-list-item{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;margin-bottom:12px;display:grid;grid-template-columns:1fr auto auto auto;align-items:center;gap:20px}
+.lease-item-name{font-size:15px;font-weight:700;color:var(--navy)}
+.lease-item-sub{font-size:12px;color:var(--light);margin-top:2px}
+.lease-item-stat-label{font-size:10px;color:var(--light);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.lease-item-stat-val{font-size:16px;font-weight:700}
+.pay-lease-btn{padding:10px 20px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .18s;white-space:nowrap;font-family:inherit}
+.pay-lease-btn.unpaid{background:var(--amber);color:#fff}
+.pay-lease-btn.unpaid:hover{opacity:.85}
+.pay-lease-btn.paid{background:#d1d5db;color:var(--mid);cursor:default}
+
+/* ── MODAL ────────────────────────────────────── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--white);border-radius:18px;padding:32px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.15)}
+.modal-box h2{font-family:'Playfair Display',serif;font-size:21px;font-weight:600;color:var(--navy);margin-bottom:3px}
+.modal-sub-line{font-size:13px;color:var(--light);margin-bottom:22px}
+.modal-section-title{font-size:11px;font-weight:600;color:var(--light);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;margin-top:18px}
+.modal-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bg);font-size:13px}
+.modal-row:last-child{border-bottom:none}
+.modal-row-label{color:var(--mid)}
+.modal-row-val{font-weight:600;color:var(--navy)}
+.modal-row-val.green{color:var(--green)}
+.modal-row-val.red{color:var(--red)}
+.modal-row-val.amber{color:var(--amber)}
+.modal-input{width:100%;padding:10px 13px;border:1px solid var(--border);border-radius:8px;font-size:13px;outline:none;transition:border .18s;color:var(--navy);font-family:inherit;margin-top:14px}
+.modal-input:focus{border-color:var(--accent)}
+.modal-btns{display:flex;gap:8px;margin-top:22px}
+.modal-cancel{flex:1;padding:11px;background:var(--bg);color:var(--mid);border:1px solid var(--border);border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.modal-cancel:hover{background:#e5e7eb}
+.modal-confirm{flex:2;padding:11px;background:var(--navy);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.modal-confirm:hover{background:var(--slate)}
+.modal-alert{padding:10px 14px;border-radius:7px;font-size:12px;margin-bottom:12px}
+.modal-alert.error{background:var(--red-light);color:#991b1b;border:1px solid #fecaca}
+.modal-alert.success{background:var(--green-light);color:#065f46;border:1px solid #a7f3d0}
+.briefing-box{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:12px;color:var(--mid);line-height:1.7;margin-bottom:6px;font-style:italic}
+
+/* ── EMPTY STATE ──────────────────────────────── */
+.empty-state{text-align:center;padding:52px 20px;color:var(--light)}
+.empty-icon{font-size:34px;margin-bottom:10px}
+.empty-state p{font-size:13px;line-height:1.6}
+
+/* ── DASHBOARD LAYOUT ─────────────────────────── */
+.dash-two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+/* ── TOAST ────────────────────────────────────── */
+#toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:13px 18px;border-radius:10px;font-size:13px;font-weight:500;z-index:999;transform:translateY(16px);opacity:0;transition:all .28s;pointer-events:none;max-width:320px;line-height:1.4}
+#toast.show{transform:translateY(0);opacity:1}
+
+/* ── SEPARATOR ────────────────────────────────── */
+.sep{height:1px;background:var(--border);margin:20px 0}
+
+/* ── SCROLLBAR ────────────────────────────────── */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:3px}
+
+/* ── RESPONSIVE ────────────────────────────────── */
+@media(max-width:820px){
+  .auth-wrap{grid-template-columns:1fr}.auth-hero{display:none}
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .market-grid{grid-template-columns:1fr 1fr}
+  .dash-two-col{grid-template-columns:1fr}
+  .lease-list-item{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .stat-grid{grid-template-columns:1fr}
+  .market-grid{grid-template-columns:1fr}
+  .tb-nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     AUTH SCREEN
+═════════════════════════════════════════ -->
+<div id="auth-screen">
+  <div class="auth-wrap">
+    <!-- Hero Side -->
+    <div class="auth-hero">
+      <div>
+        <div class="auth-hero-brand">AeroVenture</div>
+        <div class="auth-hero-tag">Business Aviation Platform</div>
+      </div>
+      <div class="auth-hero-copy">
+        <h2>Build your charter empire from the ground up.</h2>
+        <p>Buy jets outright, sign lease agreements, accept live charters, and grow your aviation business — all within a simulated economy that rewards ambition.</p>
+        <div class="auth-stats">
+          <div><div class="auth-stat-val">$5M</div><div class="auth-stat-label">Starting Capital</div></div>
+          <div><div class="auth-stat-val">15+</div><div class="auth-stat-label">Live Charters</div></div>
+          <div><div class="auth-stat-val">9</div><div class="auth-stat-label">Aircraft Types</div></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#4b5563">© AeroVenture 2026. Simulation only.</div>
+    </div>
+
+    <!-- Form Side -->
+    <div class="auth-panel">
+      <h3 id="auth-form-title">Sign in to your account</h3>
+      <div class="auth-panel-sub" id="auth-form-sub">Enter your credentials to continue</div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="auth-tab" onclick="switchAuthTab('register')">Register</button>
+      </div>
+
+      <!-- Login -->
+      <div id="login-form">
+        <div class="field"><label>Email Address</label><input type="email" id="login-email" placeholder="you@example.com"></div>
+        <div class="field"><label>Password</label><input type="password" id="login-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
+        <button class="btn-primary" onclick="doLogin()">Sign In</button>
+        <div class="auth-demo">New here? <span class="demo-link" onclick="fillDemo()">Load demo account</span> or register above.</div>
+      </div>
+
+      <!-- Register -->
+      <div id="register-form" style="display:none">
+        <div class="field"><label>Full Name</label><input type="text" id="reg-name" placeholder="Jane Smith"></div>
+        <div class="field"><label>Company Name</label><input type="text" id="reg-company" placeholder="Apex Charter Group"></div>
+        <div class="field"><label>Email Address</label><input type="email" id="reg-email" placeholder="you@example.com"></div>
+        <div class="field"><label>Password</label><input type="password" id="reg-pass" placeholder="Min 6 characters" onkeydown="if(event.key==='Enter')doRegister()"></div>
+        <button class="btn-primary" onclick="doRegister()">Create Account — Receive $5,000,000</button>
+      </div>
+
+      <div class="auth-msg" id="auth-msg"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     APP
+═════════════════════════════════════════ -->
+<div id="app" style="display:none;flex-direction:column;min-height:100vh">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="tb-brand">AeroVenture</div>
+    <div class="tb-nav">
+      <button class="nav-btn active" data-panel="dashboard" onclick="showPanel('dashboard',this)">Dashboard</button>
+      <button class="nav-btn" data-panel="charters" onclick="showPanel('charters',this)">Charter Board</button>
+      <button class="nav-btn" data-panel="market" onclick="showPanel('market',this)">Marketplace</button>
+      <button class="nav-btn" data-panel="leases" onclick="showPanel('leases',this)">My Leases</button>
+      <button class="nav-btn" data-panel="logbook" onclick="showPanel('logbook',this)">Logbook</button>
+    </div>
+    <div class="tb-right">
+      <div class="balance-chip" id="topbar-balance">$0</div>
+      <button class="avatar-btn" id="user-avatar" onclick="doLogout()" title="Click to sign out">JD</button>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- ── DASHBOARD ──────────────────────── -->
+    <div class="panel active" id="panel-dashboard">
+      <div class="page-hdr">
+        <div class="page-hdr-left">
+          <h1 id="dash-greeting">Welcome back</h1>
+          <p id="dash-company">Loading...</p>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">Available Balance</div><div class="stat-val green" id="stat-balance">$0</div></div>
+        <div class="stat-card"><div class="stat-label">Aircraft in Fleet</div><div class="stat-val blue" id="stat-fleet">0</div></div>
+        <div class="stat-card"><div class="stat-label">Active Charters</div><div class="stat-val amber" id="stat-charters">0</div></div>
+        <div class="stat-card"><div class="stat-label">Monthly Lease Cost</div><div class="stat-val" id="stat-lease">$0</div></div>
+      </div>
+
+      <!-- Two column lower -->
+      <div class="dash-two-col">
+        <div>
+          <div class="section-label">My Fleet</div>
+          <div class="fleet-grid" id="dash-fleet"></div>
+          <div id="dash-fleet-empty" class="empty-state" style="display:none">
+            <div class="empty-icon">✈</div>
+            <p>No aircraft yet.<br>Visit the <strong>Marketplace</strong> to buy or lease.</p>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Active Charters</div>
+          <div id="dash-active-charters"></div>
+          <div id="dash-charters-empty" class="empty-state" style="display:none">
+            <div class="empty-icon">📋</div>
+            <p>No active charters.<br>Visit the <strong>Charter Board</strong> to accept a flight.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CHARTER BOARD ───────────────────── -->
+    <div class="panel" id="panel-charters">
+      <div class="page-hdr">
+        <div class="page-hdr-left">
+          <h1>Charter Board</h1>
+          <p id="charter-board-count">Loading charters...</p>
+        </div>
+        <div class="page-hdr-right">
+          <button class="view-btn" onclick="renderCharters()">↻ Refresh</button>
+        </div>
+      </div>
+      <div class="filter-bar" id="filter-bar"></div>
+      <div class="charter-table-wrap">
+        <table class="charter-table">
+          <thead>
+            <tr>
+              <th>Type</th><th>Route</th><th>Mission</th><th>Category</th>
+              <th>Min. Class</th><th>PAX</th><th>Dist.</th><th>Value</th><th>Expires</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="charter-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── MARKETPLACE ─────────────────────── -->
+    <div class="panel" id="panel-market">
+      <div class="page-hdr">
+        <div class="page-hdr-left">
+          <h1>Aircraft Marketplace</h1>
+          <p>Purchase or lease business jets for your fleet</p>
+        </div>
+      </div>
+      <div class="market-grid" id="market-grid"></div>
+    </div>
+
+    <!-- ── LEASES ──────────────────────────── -->
+    <div class="panel" id="panel-leases">
+      <div class="page-hdr">
+        <div class="page-hdr-left">
+          <h1>Lease Management</h1>
+          <p id="lease-page-sub">No active leases</p>
+        </div>
+      </div>
+      <div id="leases-list"></div>
+      <div id="leases-empty" class="empty-state" style="display:none">
+        <div class="empty-icon">📄</div>
+        <p>No leased aircraft.<br>Visit the <strong>Marketplace</strong> to sign a lease agreement.</p>
+      </div>
+    </div>
+
+    <!-- ── LOGBOOK ─────────────────────────── -->
+    <div class="panel" id="panel-logbook">
+      <div class="page-hdr">
+        <div class="page-hdr-left">
+          <h1>Flight Logbook</h1>
+          <p id="logbook-sub">Your completed charter history</p>
+        </div>
+      </div>
+      <div id="logbook-content"></div>
+      <div id="logbook-empty" class="empty-state" style="display:none">
+        <div class="empty-icon">📖</div>
+        <p>No completed flights yet.<br>Accept a charter and mark it complete to build your logbook.</p>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ════════════════════════════════════════
+     MODALS
+═════════════════════════════════════════ -->
+
+<!-- BUY MODAL -->
+<div class="modal-overlay" id="modal-buy" onclick="if(event.target===this)closeModal('modal-buy')">
+  <div class="modal-box">
+    <h2>Purchase Aircraft</h2>
+    <div class="modal-sub-line">Complete transaction to add to your fleet</div>
+    <div id="buy-alert"></div>
+    <div class="modal-section-title">Transaction Details</div>
+    <div class="modal-row"><span class="modal-row-label">Aircraft</span><span class="modal-row-val" id="mb-aircraft">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Class</span><span class="modal-row-val" id="mb-class">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Purchase Price</span><span class="modal-row-val" id="mb-price">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Your Balance</span><span class="modal-row-val" id="mb-balance">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Balance After</span><span class="modal-row-val" id="mb-after">—</span></div>
+    <input class="modal-input" type="text" id="buy-reg" placeholder="Tail number (e.g. N501AV)" maxlength="9">
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeModal('modal-buy')">Cancel</button>
+      <button class="modal-confirm" onclick="confirmBuy()">Confirm Purchase</button>
+    </div>
+  </div>
+</div>
+
+<!-- LEASE MODAL -->
+<div class="modal-overlay" id="modal-lease" onclick="if(event.target===this)closeModal('modal-lease')">
+  <div class="modal-box">
+    <h2>Sign Lease Agreement</h2>
+    <div class="modal-sub-line">12-month operating lease — paid monthly</div>
+    <div id="lease-alert"></div>
+    <div class="modal-section-title">Lease Terms</div>
+    <div class="modal-row"><span class="modal-row-label">Aircraft</span><span class="modal-row-val" id="ml-aircraft">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Monthly Payment</span><span class="modal-row-val amber" id="ml-monthly">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Security Deposit (1st month)</span><span class="modal-row-val" id="ml-deposit">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Your Balance</span><span class="modal-row-val" id="ml-balance">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Balance After Deposit</span><span class="modal-row-val" id="ml-after">—</span></div>
+    <input class="modal-input" type="text" id="lease-reg" placeholder="Tail number (e.g. N501AV)" maxlength="9">
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeModal('modal-lease')">Cancel</button>
+      <button class="modal-confirm" onclick="confirmLease()">Sign Lease</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHARTER MODAL -->
+<div class="modal-overlay" id="modal-charter" onclick="if(event.target===this)closeModal('modal-charter')">
+  <div class="modal-box">
+    <h2 id="mc-title">Charter Brief</h2>
+    <div class="modal-sub-line" id="mc-route-line">—</div>
+    <div id="charter-alert"></div>
+    <div class="briefing-box" id="mc-briefing"></div>
+    <div class="modal-section-title">Flight Details</div>
+    <div class="modal-row"><span class="modal-row-label">Client</span><span class="modal-row-val" id="mc-client">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Category</span><span class="modal-row-val" id="mc-cat">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Min. Aircraft Class</span><span class="modal-row-val" id="mc-class">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Passengers</span><span class="modal-row-val" id="mc-pax">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Distance</span><span class="modal-row-val" id="mc-dist">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Charter Value</span><span class="modal-row-val green" id="mc-val">—</span></div>
+    <div class="modal-row"><span class="modal-row-label">Expires</span><span class="modal-row-val amber" id="mc-exp">—</span></div>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeModal('modal-charter')">Cancel</button>
+      <button class="modal-confirm" onclick="confirmAcceptCharter()">Accept Charter</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<!-- ════════════════════════════════════════
+     JAVASCRIPT
+═════════════════════════════════════════ -->
+<script>
+// ─── DATA ─────────────────────────────────────────
+
+const AIRCRAFT = [
+  {id:'cj4',name:'Citation CJ4',class:'Light Jet',seats:10,range:'2,165 NM',speed:'451 ktas',price:9200000,lease:28000,emoji:'✈️',desc:'Versatile light jet ideal for short-to-medium regional charters. Exceptional short-field performance.'},
+  {id:'phenom300',name:'Phenom 300E',class:'Light Jet',seats:10,range:'1,971 NM',speed:'453 ktas',price:10500000,lease:32000,emoji:'🛩️',desc:'World\'s bestselling light jet. Outstanding performance from regional strips with a premium cabin.'},
+  {id:'lear75',name:'Learjet 75 Liberty',class:'Light Jet',seats:9,range:'2,080 NM',speed:'464 ktas',price:10200000,lease:30000,emoji:'✈️',desc:'Classic Learjet bloodline with Garmin G5000 avionics and a refined cabin.'},
+  {id:'xlsp',name:'Citation XLS+',class:'Mid-Size Jet',seats:12,range:'2,100 NM',speed:'441 ktas',price:13500000,lease:42000,emoji:'🛫',desc:'Stand-up cabin, best-in-class short-field performance. The definitive mid-size workhorse.'},
+  {id:'hawker',name:'Hawker 900XP',class:'Mid-Size Jet',seats:9,range:'2,930 NM',speed:'448 ktas',price:14800000,lease:46000,emoji:'🛫',desc:'Extended-range mid-size with a generous flat-floor cabin and impressive baggage capacity.'},
+  {id:'longitude',name:'Citation Longitude',class:'Super-Mid Jet',seats:12,range:'3,500 NM',speed:'476 ktas',price:27000000,lease:68000,emoji:'🛬',desc:'Best-in-class range for the super-mid segment. True transcontinental capability nonstop.'},
+  {id:'g500',name:'Gulfstream G500',class:'Large Jet',seats:19,range:'5,200 NM',speed:'516 ktas',price:52000000,lease:145000,emoji:'🛬',desc:'Intercontinental large-cabin jet with the Symmetry flight deck and unmatched cabin altitude.'},
+  {id:'falcon7x',name:'Dassault Falcon 7X',class:'Large Jet',seats:16,range:'5,950 NM',speed:'482 ktas',price:54000000,lease:155000,emoji:'🛬',desc:'Three-engine trijet combining range, flexibility, and European elegance. Paris–Singapore nonstop.'},
+  {id:'g700',name:'Gulfstream G700',class:'Ultra-Long Range',seats:19,range:'7,500 NM',speed:'516 ktas',price:78000000,lease:215000,emoji:'🚀',desc:'Flagship ultra-long-range. The largest cabin of any purpose-built business jet. New York to Singapore direct.'},
+];
+
+const CHARTERS = [
+  {dep:'KTEB',depCity:'Teterboro',arr:'TFFJ',arrCity:'St. Barths',mission:'Island Leisure Charter',cat:'Leisure',class:'Mid-Size Jet',pax:7,dist:1480,value:55000,type:'OPEN',expires:'4d 8h',client:'Whitmore Family Trust',briefing:'A Whitmore Family Trust personal vacation flight to St. Barths for the long weekend. The family of seven is vacationing at their private villa — expect light luggage and a relaxed atmosphere. Discretion expected.'},
+  {dep:'KDEN',depCity:'Denver',arr:'KASE',arrCity:'Aspen',mission:'Ski Holiday Transfer',cat:'Leisure',class:'Light Jet',pax:6,dist:98,value:12000,type:'OPEN',expires:'2d 6h',client:'Private',briefing:'A short hop from Denver to Aspen for a private ski party. The client requires punctuality — guests have lift reservations at Aspen Highlands at 10:00 local. Light bags, no cargo.'},
+  {dep:'KMIA',depCity:'Miami',arr:'KBOS',arrCity:'Boston',mission:'Team Charter Flight',cat:'Sports',class:'Large Jet',pax:74,dist:1258,value:95000,type:'CONTRACT',expires:'23h 14m',client:'Miami Marlins',briefing:'The Miami Marlins require charter transport for 74 passengers (players, coaches, and staff) from Miami to Boston for a three-game series. This is a CONTRACT flight under Apex Aviation. Strict weight and balance requirements apply.'},
+  {dep:'LFPB',depCity:'Le Bourget',arr:'LSZH',arrCity:'Zurich',mission:'F1 Team Logistics',cat:'Sports',class:'Mid-Size Jet',pax:18,dist:284,value:38000,type:'CONTRACT',expires:'2d 4h',client:'Red Bull Racing',briefing:'Red Bull Racing senior staff require positioning from Le Bourget to Zurich following the Monaco GP. Equipment has already been freighted — this is a personnel-only movement for 18 technical and media staff.'},
+  {dep:'EGLL',depCity:'London',arr:'LEMD',arrCity:'Madrid',mission:'M&A Closing Dinner',cat:'Legal',class:'Super-Mid Jet',pax:5,dist:773,value:42000,type:'OPEN',expires:'3d 2h',client:'Clifford Chance LLP',briefing:'A five-person legal delegation from Clifford Chance is traveling to Madrid for a high-value M&A deal closing dinner with a Spanish media group. Complete confidentiality required. No media contact.'},
+  {dep:'KBOS',depCity:'Boston',arr:'EGLL',arrCity:'London',mission:'Transatlantic Board Meeting',cat:'Executive',class:'Large Jet',pax:4,dist:3270,value:162000,type:'OPEN',expires:'2d 14h',client:'Fidelity Investments',briefing:'Four senior executives from Fidelity Investments require transatlantic transport to London for an emergency board meeting following significant market movement. Departure flexibility of ±2 hours. In-flight connectivity required.'},
+  {dep:'LFMN',depCity:'Nice',arr:'LOWW',arrCity:'Vienna',mission:'Medical Specialist Transport',cat:'Medical',class:'Mid-Size Jet',pax:2,dist:602,value:48000,type:'OPEN',expires:'6h 12m',client:'Médecins Sans Frontières',briefing:'Urgent positioning of two medical specialists from Nice to Vienna for an emergency procedure at the AKH University Hospital. Time critical — the 6-hour expiry is hard. Medical equipment will be carried as cabin baggage.'},
+  {dep:'LSGG',depCity:'Geneva',arr:'LIMC',arrCity:'Milan',mission:'Paddock Transfer',cat:'Sports',class:'Light Jet',pax:8,dist:112,value:18000,type:'CONTRACT',expires:'2d 1h',client:'Ferrari Scuderia',briefing:'Ferrari Scuderia hospitality and communications staff require transfer from Geneva to Milan following debrief sessions. Eight passengers, minimal luggage. This is a standard paddock support movement.'},
+  {dep:'EHAM',depCity:'Amsterdam',arr:'LEIB',arrCity:'Ibiza',mission:'Summer Leisure Charter',cat:'Leisure',class:'Light Jet',pax:5,dist:892,value:28000,type:'OPEN',expires:'4d 22h',client:'Private',briefing:'A private leisure charter for five passengers traveling from Amsterdam to Ibiza for a week-long villa stay. Passengers require in-flight catering. No special handling requirements.'},
+  {dep:'KLAX',depCity:'Los Angeles',arr:'KORD',arrCity:'Chicago',mission:'Film Crew Positioning',cat:'Entertainment',class:'Large Jet',pax:22,dist:1741,value:118000,type:'CONTRACT',expires:'18h 30m',client:'Universal Pictures',briefing:'Universal Pictures requires urgent positioning of 22 cast and core crew members from Los Angeles to Chicago for a production start. This is a CONTRACT flight under Skybridge Charter. Equipment cases to be loaded as cargo — advance weight manifest required.'},
+  {dep:'KJFK',depCity:'New York',arr:'VHHH',arrCity:'Hong Kong',mission:'Ultra-Long Executive',cat:'Executive',class:'Ultra-Long Range',pax:4,dist:7847,value:245000,type:'OPEN',expires:'5d',client:'Goldman Sachs',briefing:'Four Goldman Sachs managing directors require nonstop transport from New York JFK to Hong Kong for an Asia-Pacific investor summit. In-flight rest facilities, high-bandwidth SATCOM, and full catering service required for the 15-hour sector.'},
+  {dep:'OMDB',depCity:'Dubai',arr:'WSSS',arrCity:'Singapore',mission:'Finance Summit Charter',cat:'Executive',class:'Large Jet',pax:8,dist:3576,value:185000,type:'OPEN',expires:'3d 12h',client:'Abu Dhabi Investment Authority',briefing:'Eight ADIA senior investment managers require transport from Dubai to Singapore for the annual Asia Sovereign Wealth Forum. Formal dress, full catering, and discreet handling at both FBOs.'},
+  {dep:'RJTT',depCity:'Tokyo',arr:'YSSY',arrCity:'Sydney',mission:'Diplomatic Courier Flight',cat:'Government',class:'Large Jet',pax:3,dist:4149,value:198000,type:'CONTRACT',expires:'1d 8h',client:'Ministry of Foreign Affairs',briefing:'Three Japanese Ministry of Foreign Affairs diplomatic couriers require transport from Tokyo Haneda to Sydney carrying sealed diplomatic pouches. This flight operates under the Vienna Convention. No customs inspection of sealed items.'},
+  {dep:'LSZS',depCity:'St. Moritz',arr:'LOWW',arrCity:'Vienna',mission:'Ski Holiday Return',cat:'Leisure',class:'Light Jet',pax:4,dist:185,value:14000,type:'OPEN',expires:'6d',client:'Private',briefing:'A private family returning from a ski holiday in St. Moritz to Vienna. Four passengers, two pairs of skis, and standard luggage. Relaxed timeline — any departure between 10:00 and 14:00 local is acceptable.'},
+  {dep:'KASE',depCity:'Aspen',arr:'KMIA',arrCity:'Miami',mission:'Pharma Clinical Liaison',cat:'Medical',class:'Mid-Size Jet',pax:3,dist:1642,value:62000,type:'CONTRACT',expires:'12h',client:'Pfizer Inc.',briefing:'Pfizer clinical affairs team (3 staff) require urgent repositioning from Aspen to Miami ahead of a Phase III clinical trial logistics meeting. Time-critical — the 12-hour expiry reflects the trial schedule. Cold-chain medical materials to be carried in the cabin.'},
+];
+
+// ─── STORAGE ──────────────────────────────────────
+
+function getUsers(){return JSON.parse(localStorage.getItem('av_users')||'{}')}
+function saveUsers(u){localStorage.setItem('av_users',JSON.stringify(u))}
+function getSession(){return localStorage.getItem('av_session')}
+function setSession(e){localStorage.setItem('av_session',e)}
+function clearSession(){localStorage.removeItem('av_session')}
+
+// ─── HELPERS ──────────────────────────────────────
+
+const fmt = n => '$' + n.toLocaleString();
+const initials = name => name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+
+let currentUser = null;
+let pendingBuy = null;
+let pendingLease = null;
+let pendingCharter = null;
+let activeFilter = 'All';
+
+// ─── AUTH ─────────────────────────────────────────
+
+function switchAuthTab(tab){
+  document.querySelectorAll('.auth-tab').forEach((t,i)=>t.classList.toggle('active',i===(tab==='login'?0:1)));
+  document.getElementById('login-form').style.display = tab==='login'?'':'none';
+  document.getElementById('register-form').style.display = tab==='register'?'':'none';
+  document.getElementById('auth-msg').textContent = '';
+}
+
+function fillDemo(){
+  document.getElementById('login-email').value='demo@aeroventure.io';
+  document.getElementById('login-pass').value='demo2026';
+  const users = getUsers();
+  if(!users['demo@aeroventure.io']){
+    users['demo@aeroventure.io']={name:'James Porter',company:'Meridian Charter Group',password:'demo2026',balance:5000000,fleet:[],leases:[],activeCharters:[],logbook:[]};
+    saveUsers(users);
+  }
+  showMsg('Demo credentials loaded — click Sign In');
+}
+
+function showMsg(msg,color='var(--red)'){
+  const el=document.getElementById('auth-msg');
+  el.style.color=color;
+  el.textContent=msg;
+}
+
+function doLogin(){
+  const e=document.getElementById('login-email').value.trim();
+  const p=document.getElementById('login-pass').value;
+  if(!e||!p){showMsg('Enter email and password.');return}
+  const users=getUsers();
+  if(!users[e]){showMsg('No account found with that email.');return}
+  if(users[e].password!==p){showMsg('Incorrect password.');return}
+  setSession(e);loadApp(e);
+}
+
+function doRegister(){
+  const n=document.getElementById('reg-name').value.trim();
+  const c=document.getElementById('reg-company').value.trim();
+  const e=document.getElementById('reg-email').value.trim();
+  const p=document.getElementById('reg-pass').value;
+  if(!n||!c||!e||!p){showMsg('All fields are required.');return}
+  if(p.length<6){showMsg('Password must be at least 6 characters.');return}
+  if(!/\S+@\S+\.\S+/.test(e)){showMsg('Enter a valid email address.');return}
+  const users=getUsers();
+  if(users[e]){showMsg('That email is already registered.');return}
+  users[e]={name:n,company:c,password:p,balance:5000000,fleet:[],leases:[],activeCharters:[],logbook:[]};
+  saveUsers(users);setSession(e);loadApp(e);
+}
+
+// ─── APP INIT ─────────────────────────────────────
+
+function loadApp(email){
+  const users=getUsers();
+  currentUser=users[email];
+  currentUser.email=email;
+  if(!currentUser.logbook)currentUser.logbook=[];
+  document.getElementById('auth-screen').style.display='none';
+  document.getElementById('app').style.display='flex';
+  document.getElementById('user-avatar').textContent=initials(currentUser.name);
+  document.getElementById('user-avatar').title=`${currentUser.name} — click to sign out`;
+  document.getElementById('dash-greeting').textContent='Welcome back, '+currentUser.name.split(' ')[0];
+  document.getElementById('dash-company').textContent=currentUser.company+' · Business Aviation';
+  renderAll();
+}
+
+function saveUser(){
+  const users=getUsers();
+  users[currentUser.email]={...currentUser};
+  delete users[currentUser.email].email;
+  saveUsers(users);
+}
+
+function renderAll(){updateBalance();renderDashboard();renderCharters();renderMarket();renderLeases();renderLogbook();}
+
+function updateBalance(){
+  const b=currentUser.balance;
+  document.getElementById('topbar-balance').textContent=fmt(b);
+  document.getElementById('stat-balance').textContent=fmt(b);
+  document.getElementById('stat-fleet').textContent=currentUser.fleet.length+currentUser.leases.length;
+  document.getElementById('stat-charters').textContent=currentUser.activeCharters.length;
+  const totalLease=currentUser.leases.reduce((s,l)=>s+l.lease,0);
+  document.getElementById('stat-lease').textContent=totalLease>0?fmt(totalLease)+'/mo':'$0';
+}
+
+// ─── NAVIGATION ───────────────────────────────────
+
+function showPanel(id, btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  if(btn)btn.classList.add('active');
+  if(id==='dashboard')renderDashboard();
+  if(id==='leases')renderLeases();
+  if(id==='logbook')renderLogbook();
+}
+
+// ─── DASHBOARD ────────────────────────────────────
+
+function renderDashboard(){
+  updateBalance();
+
+  // Fleet
+  const fg=document.getElementById('dash-fleet');
+  const fe=document.getElementById('dash-fleet-empty');
+  const allAc=[...currentUser.fleet.map(f=>({...f,owned:true})),...currentUser.leases.map(l=>({...l,owned:false}))];
+  if(allAc.length===0){fg.innerHTML='';fe.style.display='block'}
+  else{
+    fe.style.display='none';
+    const today=new Date().toDateString();
+    fg.innerHTML=allAc.map(a=>{
+      const paid=a.paidDates&&a.paidDates.includes(today);
+      return `<div class="fleet-card">
+        <div class="fleet-card-reg">${a.reg}</div>
+        <div class="fleet-card-type">${a.name}</div>
+        <span class="badge ${a.owned?'badge-owned':'badge-leased'}">${a.owned?'Owned':'Leased'}</span>
+        ${!a.owned?`<div class="lease-info-row">${fmt(a.lease)}/mo
+          <br><button class="pay-btn${paid?' paid':''}" onclick="payLease('${a.id}','${a.reg}')">${paid?'✓ Paid':'Pay Now'}</button>
+        </div>`:''}
+      </div>`;
+    }).join('');
+  }
+
+  // Active charters
+  const ca=document.getElementById('dash-active-charters');
+  const ce=document.getElementById('dash-charters-empty');
+  if(currentUser.activeCharters.length===0){ca.innerHTML='';ce.style.display='block'}
+  else{
+    ce.style.display='none';
+    ca.innerHTML=currentUser.activeCharters.map((c,i)=>`
+      <div class="active-charter-item">
+        <div class="charter-route-title">${c.dep} → ${c.arr}</div>
+        <div class="charter-meta-line">${c.depCity} → ${c.arrCity} · ${c.cat} · ${c.dist} NM</div>
+        <div class="charter-earn">${fmt(c.value)}</div>
+        <button class="complete-btn" onclick="completeCharter(${i})">✓ Mark Complete — Collect ${fmt(c.value)}</button>
+      </div>`).join('');
+  }
+}
+
+// ─── CHARTER BOARD ────────────────────────────────
+
+function renderCharters(){
+  const cats=['All','Leisure','Sports','Executive','Medical','Legal','Entertainment','Government'];
+  document.getElementById('filter-bar').innerHTML=cats.map(c=>
+    `<button class="fchip${c===activeFilter?' active':''}" onclick="setFilter('${c}')">${c}</button>`).join('');
+
+  const filtered=activeFilter==='All'?CHARTERS:CHARTERS.filter(c=>c.cat===activeFilter);
+  document.getElementById('charter-board-count').textContent=filtered.length+' charters available';
+  document.getElementById('charter-tbody').innerHTML=filtered.map(c=>{
+    const idx=CHARTERS.indexOf(c);
+    const active=currentUser.activeCharters.some(a=>a.dep===c.dep&&a.arr===c.arr&&a.mission===c.mission);
+    return `<tr>
+      <td><span class="badge ${c.type==='OPEN'?'badge-open':'badge-contract'}">${c.type}</span></td>
+      <td>
+        <div class="route-dep">${c.dep} → ${c.arr}</div>
+        <div class="route-city">${c.depCity} → ${c.arrCity}</div>
+      </td>
+      <td style="max-width:170px;white-space:normal">${c.mission}</td>
+      <td>${c.cat}</td>
+      <td style="white-space:nowrap">${c.class}</td>
+      <td>${c.pax}</td>
+      <td style="white-space:nowrap">${c.dist} NM</td>
+      <td class="earn-val" style="white-space:nowrap">${fmt(c.value)}</td>
+      <td class="exp-val" style="white-space:nowrap">${c.expires}</td>
+      <td><button class="view-btn" ${active?'disabled':''} onclick="openCharterModal(${idx})">${active?'Active':'View'}</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function setFilter(f){activeFilter=f;renderCharters();}
+
+// ─── MARKETPLACE ──────────────────────────────────
+
+function renderMarket(){
+  document.getElementById('market-grid').innerHTML=AIRCRAFT.map(a=>{
+    return `<div class="mcard">
+      <div class="mcard-img">${a.emoji}<div class="mcard-class-badge">${a.class}</div></div>
+      <div class="mcard-body">
+        <div class="mcard-name">${a.name}</div>
+        <div class="mcard-sub">${a.class}</div>
+        <div class="mcard-specs">
+          <div><div class="mspec-label">Range</div><div class="mspec-val">${a.range}</div></div>
+          <div><div class="mspec-label">Speed</div><div class="mspec-val">${a.speed}</div></div>
+          <div><div class="mspec-label">Seats</div><div class="mspec-val">${a.seats}</div></div>
+          <div><div class="mspec-label">Lease/mo</div><div class="mspec-val">${fmt(a.lease)}</div></div>
+        </div>
+        <div class="mcard-desc">${a.desc}</div>
+        <div class="mcard-prices">
+          <div class="mcard-buy-price">
+            <div class="price-val">${fmt(a.price)}</div>
+            <div class="price-label">Purchase price</div>
+          </div>
+          <div class="mcard-lease-price">
+            <div class="price-val">${fmt(a.lease)}/mo</div>
+            <div class="price-label">Monthly lease</div>
+          </div>
+        </div>
+        <button class="buy-btn" onclick="openBuyModal('${a.id}')">Purchase Aircraft</button>
+        <button class="lease-btn-outline" onclick="openLeaseModal('${a.id}')">Lease — ${fmt(a.lease)}/month</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── LEASE PAGE ───────────────────────────────────
+
+function renderLeases(){
+  const leases=currentUser.leases;
+  const el=document.getElementById('leases-empty');
+  const ll=document.getElementById('leases-list');
+  if(leases.length===0){el.style.display='block';ll.innerHTML='';document.getElementById('lease-page-sub').textContent='No active leases';return}
+  el.style.display='none';
+  const total=leases.reduce((s,l)=>s+l.lease,0);
+  document.getElementById('lease-page-sub').textContent=leases.length+' aircraft under lease · '+fmt(total)+'/month total';
+  const today=new Date().toDateString();
+  ll.innerHTML=leases.map(l=>{
+    const paid=l.paidDates&&l.paidDates.includes(today);
+    return `<div class="lease-list-item">
+      <div>
+        <div class="lease-item-name">${l.reg} — ${l.name}</div>
+        <div class="lease-item-sub">${l.class} · Operating Lease</div>
+      </div>
+      <div>
+        <div class="lease-item-stat-label">Monthly</div>
+        <div class="lease-item-stat-val" style="color:var(--amber)">${fmt(l.lease)}</div>
+      </div>
+      <div>
+        <div class="lease-item-stat-label">This Month</div>
+        <div class="lease-item-stat-val" style="color:${paid?'var(--green)':'var(--red)'}">${paid?'✓ Paid':'Due'}</div>
+      </div>
+      <button class="pay-lease-btn ${paid?'paid':'unpaid'}" onclick="payLease('${l.id}','${l.reg}')">${paid?'✓ Paid This Month':'Pay — '+fmt(l.lease)}</button>
+    </div>`;
+  }).join('');
+}
+
+// ─── LOGBOOK ──────────────────────────────────────
+
+function renderLogbook(){
+  const lb=currentUser.logbook||[];
+  const el=document.getElementById('logbook-empty');
+  const lc=document.getElementById('logbook-content');
+  if(lb.length===0){el.style.display='block';lc.innerHTML='';document.getElementById('logbook-sub').textContent='No completed flights yet';return}
+  el.style.display='none';
+  const totalEarned=lb.reduce((s,l)=>s+l.value,0);
+  document.getElementById('logbook-sub').textContent=lb.length+' flights logged · '+fmt(totalEarned)+' total earned';
+  lc.innerHTML=`<div class="card" style="overflow:hidden">
+    <table style="width:100%;border-collapse:collapse;min-width:600px">
+      <thead><tr style="background:var(--bg)">
+        <th style="font-size:11px;font-weight:600;color:var(--light);text-transform:uppercase;letter-spacing:.5px;padding:13px 16px;text-align:left;border-bottom:1px solid var(--border)">Date</th>
+        <th style="font-size:11px;font-weight:600;color:var(--light);text-transform:uppercase;letter-spacing:.5px;padding:13px 16px;text-align:left;border-bottom:1px solid var(--border)">Route</th>
+        <th style="font-size:11px;font-weight:600;color:var(--light);text-transform:uppercase;letter-spacing:.5px;padding:13px 16px;text-align:left;border-bottom:1px solid var(--border)">Mission</th>
+        <th style="font-size:11px;font-weight:600;color:var(--light);text-transform:uppercase;letter-spacing:.5px;padding:13px 16px;text-align:left;border-bottom:1px solid var(--border)">Category</th>
+        <th style="font-size:11px;font-weight:600;color:var(--light);text-transform:uppercase;letter-spacing:.5px;padding:13px 16px;text-align:right;border-bottom:1px solid var(--border)">Earned</th>
+      </tr></thead>
+      <tbody>
+        ${[...lb].reverse().map(l=>`<tr style="border-bottom:1px solid var(--bg)">
+          <td style="padding:13px 16px;font-size:13px;color:var(--mid);white-space:nowrap">${l.date}</td>
+          <td style="padding:13px 16px;font-size:13px;font-weight:600;color:var(--navy)">${l.dep} → ${l.arr}</td>
+          <td style="padding:13px 16px;font-size:13px;color:var(--navy)">${l.mission}</td>
+          <td style="padding:13px 16px;font-size:13px;color:var(--mid)">${l.cat}</td>
+          <td style="padding:13px 16px;font-size:13px;font-weight:700;color:var(--green);text-align:right">${fmt(l.value)}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+// ─── MODALS ───────────────────────────────────────
+
+function openBuyModal(id){
+  pendingBuy=id;
+  const a=AIRCRAFT.find(x=>x.id===id);
+  const after=currentUser.balance-a.price;
+  document.getElementById('mb-aircraft').textContent=a.name;
+  document.getElementById('mb-class').textContent=a.class;
+  document.getElementById('mb-price').textContent=fmt(a.price);
+  document.getElementById('mb-balance').textContent=fmt(currentUser.balance);
+  document.getElementById('mb-after').textContent=after>=0?fmt(after):'Insufficient funds';
+  document.getElementById('mb-after').className='modal-row-val '+(after>=0?'green':'red');
+  document.getElementById('buy-alert').innerHTML='';
+  document.getElementById('buy-reg').value='';
+  document.getElementById('modal-buy').classList.add('open');
+  setTimeout(()=>document.getElementById('buy-reg').focus(),100);
+}
+
+function confirmBuy(){
+  const a=AIRCRAFT.find(x=>x.id===pendingBuy);
+  const reg=document.getElementById('buy-reg').value.trim().toUpperCase();
+  if(!reg||reg.length<2){setModalAlert('buy-alert','Enter a valid tail number (e.g. N501AV).','error');return}
+  if(currentUser.balance<a.price){setModalAlert('buy-alert','Insufficient balance for this purchase.','error');return}
+  currentUser.balance-=a.price;
+  currentUser.fleet.push({id:a.id,name:a.name,class:a.class,reg});
+  saveUser();updateBalance();renderDashboard();renderMarket();
+  closeModal('modal-buy');
+  toast(`${reg} — ${a.name} added to your fleet!`);
+}
+
+function openLeaseModal(id){
+  pendingLease=id;
+  const a=AIRCRAFT.find(x=>x.id===id);
+  const after=currentUser.balance-a.lease;
+  document.getElementById('ml-aircraft').textContent=a.name;
+  document.getElementById('ml-monthly').textContent=fmt(a.lease)+'/month';
+  document.getElementById('ml-deposit').textContent=fmt(a.lease);
+  document.getElementById('ml-balance').textContent=fmt(currentUser.balance);
+  document.getElementById('ml-after').textContent=after>=0?fmt(after):'Insufficient funds';
+  document.getElementById('ml-after').className='modal-row-val '+(after>=0?'green':'red');
+  document.getElementById('lease-alert').innerHTML='';
+  document.getElementById('lease-reg').value='';
+  document.getElementById('modal-lease').classList.add('open');
+  setTimeout(()=>document.getElementById('lease-reg').focus(),100);
+}
+
+function confirmLease(){
+  const a=AIRCRAFT.find(x=>x.id===pendingLease);
+  const reg=document.getElementById('lease-reg').value.trim().toUpperCase();
+  if(!reg||reg.length<2){setModalAlert('lease-alert','Enter a valid tail number (e.g. N501AV).','error');return}
+  if(currentUser.balance<a.lease){setModalAlert('lease-alert','Insufficient balance for the security deposit.','error');return}
+  currentUser.balance-=a.lease;
+  const today=new Date().toDateString();
+  currentUser.leases.push({id:a.id,name:a.name,class:a.class,reg,lease:a.lease,paidDates:[today]});
+  saveUser();updateBalance();renderDashboard();renderMarket();renderLeases();
+  closeModal('modal-lease');
+  toast(`Lease signed for ${reg} — ${a.name}!`);
+}
+
+function payLease(id,reg){
+  const today=new Date().toDateString();
+  const lease=currentUser.leases.find(l=>l.id===id&&l.reg===reg);
+  if(!lease)return;
+  if(lease.paidDates&&lease.paidDates.includes(today)){toast('Lease already paid this month.');return}
+  if(currentUser.balance<lease.lease){toast('Insufficient balance to pay lease.');return}
+  currentUser.balance-=lease.lease;
+  if(!lease.paidDates)lease.paidDates=[];
+  lease.paidDates.push(today);
+  saveUser();updateBalance();renderLeases();renderDashboard();
+  toast(`${fmt(lease.lease)} lease payment processed for ${reg}`);
+}
+
+function openCharterModal(idx){
+  pendingCharter=idx;
+  const c=CHARTERS[idx];
+  document.getElementById('mc-title').textContent=c.mission;
+  document.getElementById('mc-route-line').textContent=`${c.dep} (${c.depCity}) → ${c.arr} (${c.arrCity})`;
+  document.getElementById('mc-briefing').textContent=c.briefing;
+  document.getElementById('mc-client').textContent=c.client;
+  document.getElementById('mc-cat').textContent=c.cat;
+  document.getElementById('mc-class').textContent=c.class;
+  document.getElementById('mc-pax').textContent=c.pax+' passengers';
+  document.getElementById('mc-dist').textContent=c.dist+' NM';
+  document.getElementById('mc-val').textContent=fmt(c.value);
+  document.getElementById('mc-exp').textContent=c.expires;
+  document.getElementById('charter-alert').innerHTML='';
+  document.getElementById('modal-charter').classList.add('open');
+}
+
+function confirmAcceptCharter(){
+  const c=CHARTERS[pendingCharter];
+  const alreadyActive=currentUser.activeCharters.some(a=>a.dep===c.dep&&a.arr===c.arr&&a.mission===c.mission);
+  if(alreadyActive){setModalAlert('charter-alert','This charter is already in your active list.','error');return}
+  currentUser.activeCharters.push({...c});
+  saveUser();updateBalance();renderCharters();renderDashboard();
+  closeModal('modal-charter');
+  toast(`Charter accepted — ${c.dep} → ${c.arr}. Complete it from the Dashboard.`);
+}
+
+function completeCharter(i){
+  const c=currentUser.activeCharters[i];
+  currentUser.balance+=c.value;
+  if(!currentUser.logbook)currentUser.logbook=[];
+  currentUser.logbook.push({
+    dep:c.dep,arr:c.arr,depCity:c.depCity,arrCity:c.arrCity,
+    mission:c.mission,cat:c.cat,value:c.value,dist:c.dist,
+    date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})
+  });
+  currentUser.activeCharters.splice(i,1);
+  saveUser();updateBalance();renderDashboard();renderLogbook();
+  toast(`Charter complete! ${fmt(c.value)} added to your balance.`);
+}
+
+// ─── UTILITIES ────────────────────────────────────
+
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+function setModalAlert(elId,msg,type){
+  document.getElementById(elId).innerHTML=`<div class="modal-alert ${type}">${msg}</div>`;
+}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+function doLogout(){
+  currentUser=null;
+  clearSession();
+  document.getElementById('app').style.display='none';
+  document.getElementById('auth-screen').style.display='flex';
+  document.getElementById('auth-msg').textContent='';
+  activeFilter='All';
+}
+
+// keyboard close
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open'))});
+
+// ─── AUTO-LOGIN ───────────────────────────────────
+(function(){
+  const sess=getSession();
+  if(sess){const users=getUsers();if(users[sess])loadApp(sess);}
+})();
+
+
+// ─── PWA INSTALL PROMPT ───────────────────────────
+let deferredPrompt=null;
+const installBanner=document.getElementById('install-banner');
+const installBtn=document.getElementById('install-btn');
+const installDismiss=document.getElementById('install-dismiss');
+
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();
+  deferredPrompt=e;
+  if(installBanner)installBanner.style.display='flex';
+});
+
+if(installBtn){
+  installBtn.addEventListener('click',async()=>{
+    if(!deferredPrompt)return;
+    deferredPrompt.prompt();
+    const{outcome}=await deferredPrompt.userChoice;
+    deferredPrompt=null;
+    if(installBanner)installBanner.style.display='none';
+  });
+}
+
+if(installDismiss){
+  installDismiss.addEventListener('click',()=>{
+    if(installBanner)installBanner.style.display='none';
+  });
+}
+
+window.addEventListener('appinstalled',()=>{
+  if(installBanner)installBanner.style.display='none';
+  toast('AeroVenture installed! Launch it from your desktop or taskbar.');
+});
+
+// ─── SERVICE WORKER ───────────────────────────────
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+
+</script>
+
+<!-- ─── PWA INSTALL BANNER ──────────────────────── -->
+<div id="install-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#111827;color:#fff;padding:14px 24px;align-items:center;justify-content:space-between;gap:16px;z-index:500;box-shadow:0 -4px 20px rgba(0,0,0,.2)">
+  <div style="display:flex;align-items:center;gap:12px">
+    <span style="font-size:24px">✈</span>
+    <div>
+      <div style="font-size:14px;font-weight:600">Install AeroVenture</div>
+      <div style="font-size:12px;color:#9ca3af;margin-top:1px">Add to your desktop for a native app experience</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;flex-shrink:0">
+    <button id="install-dismiss" style="padding:8px 16px;background:transparent;color:#9ca3af;border:1px solid #374151;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit">Not now</button>
+    <button id="install-btn" style="padding:8px 18px;background:#fff;color:#111827;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">Install App</button>
+  </div>
+</div>
+</body>
+</html>
