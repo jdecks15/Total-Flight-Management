@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Total Flight Management Inc. | VATSIM Virtual Airline</title>
+<title>Total Flight Management Inc. | Virtual Flight Operations</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -78,7 +78,7 @@ section{padding:100px 60px;}
 .fleet-card:hover img{filter:saturate(.9) brightness(.9);transform:scale(1.04);}
 .fleet-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(17,17,17,.9) 0%,transparent 60%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;}
 .fleet-tag{font-size:9px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--maroon-l);margin-bottom:6px;}
-.fleet-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;color:var(--white);margin-bottom:10px;}
+.fleet-name{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:600;letter-spacing:.1em;color:var(--white);margin-bottom:10px;}
 .fleet-specs{display:flex;gap:18px;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;}
 .fleet-card:hover .fleet-specs{opacity:1;transform:translateY(0);}
 .fspec{font-size:11px;font-weight:300;color:var(--g200);}
@@ -213,6 +213,61 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
 
 .reveal{opacity:1;transform:translateY(0);transition:opacity .7s ease,transform .7s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── AEROVENTURE SECTION ──────────────────────── */
+.av-section{background:#0d1117;padding:100px 60px;position:relative;overflow:hidden;border-top:1px solid rgba(107,15,26,.3);}
+.av-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 50%,rgba(107,15,26,.18) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(29,78,216,.06) 0%,transparent 60%);pointer-events:none;}
+.av-section::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.av-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.av-eyebrow{font-size:10px;font-weight:600;letter-spacing:.4em;text-transform:uppercase;color:var(--maroon-l);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.av-eyebrow::before{content:'';width:24px;height:1px;background:var(--maroon-l);}
+.av-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,58px);font-weight:300;color:#fff;line-height:1.1;margin-bottom:20px;}
+.av-title em{font-style:italic;color:rgba(255,255,255,.45);}
+.av-desc{font-size:14px;font-weight:300;line-height:1.8;color:var(--g400);margin-bottom:36px;max-width:440px;}
+.av-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px;}
+.av-btn-launch{display:inline-flex;align-items:center;gap:9px;padding:14px 30px;background:var(--white);color:#0d1117;border:none;font-family:'Barlow',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .2s;}
+.av-btn-launch:hover{background:var(--g100);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
+.av-btn-install{display:inline-flex;align-items:center;gap:9px;padding:14px 28px;background:transparent;color:var(--g200);border:1px solid rgba(255,255,255,.2);font-family:'Barlow',sans-serif;font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .2s;}
+.av-btn-install:hover{border-color:rgba(255,255,255,.4);color:#fff;}
+.av-feats{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.av-feat{display:flex;align-items:flex-start;gap:14px;}
+.av-feat-icon{width:34px;height:34px;background:rgba(107,15,26,.25);border:1px solid rgba(107,15,26,.5);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:2px;}
+.av-feat strong{display:block;font-size:12px;font-weight:600;letter-spacing:.05em;color:var(--g100);margin-bottom:3px;}
+.av-feat span{font-size:11px;font-weight:300;line-height:1.6;color:var(--g400);}
+/* Mockup */
+.av-mockup-frame{background:#1a2235;border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.03),0 32px 80px rgba(0,0,0,.7),0 0 100px rgba(107,15,26,.08);}
+.av-mockup-bar{background:#111827;padding:11px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);}
+.av-dots{display:flex;gap:5px;}
+.av-dots span{width:9px;height:9px;border-radius:50%;}
+.av-dots span:nth-child(1){background:#ff5f57;}
+.av-dots span:nth-child(2){background:#febc2e;}
+.av-dots span:nth-child(3){background:#28c840;}
+.av-url{flex:1;background:rgba(255,255,255,.06);border-radius:4px;padding:4px 10px;font-size:10px;color:var(--g400);font-family:monospace;margin:0 10px;}
+.av-app-bar{background:#fff;border-bottom:1px solid #e5e7eb;padding:9px 14px;display:flex;align-items:center;gap:10px;}
+.av-app-brand{font-family:'Cormorant Garamond',serif;font-size:12px;color:#111827;font-weight:600;white-space:nowrap;}
+.av-app-nav{display:flex;gap:2px;flex:1;}
+.av-app-nav-btn{padding:3px 8px;border-radius:3px;font-size:9px;font-weight:500;color:#6b7280;}
+.av-app-nav-btn.on{background:#111827;color:#fff;}
+.av-app-bal{background:#ecfdf5;border:1px solid #6ee7b7;border-radius:20px;padding:3px 8px;font-size:9px;font-weight:700;color:#065f46;white-space:nowrap;}
+.av-app-body{background:#f9fafb;padding:12px 14px;}
+.av-app-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px;}
+.av-app-stat{background:#fff;border:1px solid #e5e7eb;border-radius:6px;padding:8px 10px;}
+.av-app-stat-l{font-size:7px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+.av-app-stat-v{font-size:12px;font-weight:700;color:#111827;}
+.av-app-stat-v.g{color:#059669;}.av-app-stat-v.b{color:#1d4ed8;}.av-app-stat-v.a{color:#d97706;}
+.av-app-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.av-app-col-hd{font-size:7px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px;}
+.av-app-fc{background:#fff;border:1px solid #e5e7eb;border-radius:5px;padding:7px 9px;margin-bottom:5px;}
+.av-app-fc-reg{font-size:10px;font-weight:700;color:#111827;}
+.av-app-fc-type{font-size:8px;color:#9ca3af;margin-top:1px;margin-bottom:4px;}
+.av-mbadge{font-size:7px;font-weight:700;padding:2px 5px;border-radius:2px;text-transform:uppercase;}
+.av-mbadge.o{background:#dcfce7;color:#15803d;}.av-mbadge.l{background:#fef3c7;color:#92400e;}
+.av-app-cc{background:#fff;border:1px solid #e5e7eb;border-radius:5px;padding:7px 9px;margin-bottom:5px;}
+.av-app-cc-rt{font-size:10px;font-weight:700;color:#111827;}
+.av-app-cc-mt{font-size:8px;color:#9ca3af;margin-top:1px;}
+.av-app-cc-vl{font-size:9px;font-weight:700;color:#059669;margin-top:3px;}
+.av-note{margin-top:18px;font-size:10px;font-weight:300;color:var(--g600);text-align:center;letter-spacing:.05em;}
+@media(max-width:900px){.av-inner{grid-template-columns:1fr}.av-right{display:none}.av-feats{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -227,6 +282,7 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
     <li><a href="#" onclick="showPage('fleet')">Fleet</a></li>
     <li><a href="#" onclick="showPage('charter')">Charter Quote</a></li>
     <li><a href="#" onclick="showPage('about')">About</a></li>
+    <li><a href="#" onclick="openAeroVenture(event)" style="color:var(--maroon-xs)!important;">AeroVenture ↗</a></li>
     <li><a href="#" onclick="showPage('portal')" class="nav-portal">Crew Portal</a></li>
     <li><a href="#" onclick="showPage('charter')" class="nav-cta">Request Quote</a></li>
   </ul>
@@ -238,7 +294,7 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
   <section id="heroSection">
     <div class="hero-bg"></div>
     <div class="hero-content">
-      <div class="hero-eyebrow">VATSIM Virtual Airline * Part 135 * Teterboro, NJ</div>
+      <div class="hero-eyebrow">Virtual Flight Operations * Part 135 * Teterboro, NJ</div>
       <h1 class="hero-title">The Art of<br><em>Virtual Travel</em></h1>
       <p class="hero-sub">Total Flight Management Incorporated</p>
       <div class="hero-buttons">
@@ -246,8 +302,6 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
       </div>
     </div>
     <div class="hero-stats">
-      <div class="hstat"><span class="hstat-label">Certificate</span><span class="hstat-value">JDJZ2030</span></div>
-      <div class="hstat-div"></div>
       <div class="hstat"><span class="hstat-label">Base</span><span class="hstat-value">KTEB</span></div>
       <div class="hstat-div"></div>
       <div class="hstat"><span class="hstat-label">Operations</span><span class="hstat-value">On-Demand Charter</span></div>
@@ -258,7 +312,7 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
     <div class="feat" onclick="showPage('charter')">
       <div class="feat-icon">&#9992;</div>
       <div class="feat-title">Request Charter</div>
-      <p class="feat-text">AI-powered instant quote for any route. Fly on VATSIM within hours.</p>
+      <p class="feat-text">AI-powered instant quote for any route. Instant pricing on any city pair.</p>
     </div>
     <div class="feat" onclick="showPage('portal')">
       <div class="feat-icon">&#9678;</div>
@@ -268,7 +322,7 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
     <div class="feat" onclick="showPage('about')">
       <div class="feat-icon">&#9881;</div>
       <div class="feat-title">Join TFM</div>
-      <p class="feat-text">VATSIM pilots wanted. ATP-rated, professional, and passionate about aviation.</p>
+      <p class="feat-text">Virtual pilots wanted. ATP-rated, professional, and passionate about aviation.</p>
     </div>
   </div>
 
@@ -293,7 +347,7 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
         </div>
       </div>
       <div class="fleet-card">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='450' viewBox='0 0 600 450'%3E%3Crect width='600' height='450' fill='%231C1C1C'/%3E%3Crect width='600' height='450' fill='url(%23g)'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236B0F1A' stop-opacity='0.3'/%3E%3Cstop offset='1' stop-color='%23111' stop-opacity='0.8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='300' y='200' text-anchor='middle' font-family='Arial' font-size='72' fill='%23333'%3E%E2%9C%88%3C/text%3E%3Ctext x='300' y='260' text-anchor='middle' font-family='Arial' font-size='14' fill='%23555' letter-spacing='4'%3EDASSAULT FALCON 50%3C/text%3E%3C/svg%3E" alt="Falcon 50 N37WX">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='450' viewBox='0 0 600 450'%3E%3Crect width='600' height='450' fill='%231C1C1C'/%3E%3Crect width='600' height='450' fill='url(%23g2)'/%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236B0F1A' stop-opacity='0.3'/%3E%3Cstop offset='1' stop-color='%23111' stop-opacity='0.8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='300' y='200' text-anchor='middle' font-family='Arial' font-size='72' fill='%23333'%3E%E2%9C%88%3C/text%3E%3Ctext x='300' y='260' text-anchor='middle' font-family='Arial' font-size='14' fill='%23555' letter-spacing='4'%3EDASSAULT FALCON 50%3C/text%3E%3C/svg%3E" alt="Falcon 50 N37WX">
         <div class="fleet-overlay">
           <div class="fleet-tag">Dassault Falcon 50</div>
           <div class="fleet-name">N37WX</div>
@@ -305,10 +359,10 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
         </div>
       </div>
       <div class="fleet-card">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='450' viewBox='0 0 600 450'%3E%3Crect width='600' height='450' fill='%231C1C1C'/%3E%3Crect width='600' height='450' fill='url(%23g)'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236B0F1A' stop-opacity='0.3'/%3E%3Cstop offset='1' stop-color='%23111' stop-opacity='0.8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='300' y='200' text-anchor='middle' font-family='Arial' font-size='72' fill='%23333'%3E%E2%9C%88%3C/text%3E%3Ctext x='300' y='260' text-anchor='middle' font-family='Arial' font-size='14' fill='%23555' letter-spacing='4'%3EDASSAULT FALCON 50%3C/text%3E%3C/svg%3E" alt="Falcon 50 N111DG">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='450' viewBox='0 0 600 450'%3E%3Crect width='600' height='450' fill='%231C1C1C'/%3E%3Crect width='600' height='450' fill='url(%23g3)'/%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236B0F1A' stop-opacity='0.3'/%3E%3Cstop offset='1' stop-color='%23111' stop-opacity='0.8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='300' y='200' text-anchor='middle' font-family='Arial' font-size='72' fill='%23333'%3E%E2%9C%88%3C/text%3E%3Ctext x='300' y='260' text-anchor='middle' font-family='Arial' font-size='14' fill='%23555' letter-spacing='4'%3EDASSAULT FALCON 50%3C/text%3E%3C/svg%3E" alt="Falcon 50 N111DG">
         <div class="fleet-overlay">
           <div class="fleet-tag">Dassault Falcon 50</div>
-          <div class="fleet-name">Falcon 50</div>
+          <div class="fleet-name">N111DG</div>
           <div class="fleet-specs">
             <div class="fspec"><span>Range</span>6,500+ nm</div>
             <div class="fspec"><span>Seats</span>12-16 pax</div>
@@ -348,13 +402,85 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
     </div>
   </section>
 
+
+  <!-- ── AEROVENTURE SECTION ─────────────────────── -->
+  <section class="av-section" id="aeroventure">
+    <div class="av-inner">
+
+      <!-- Left copy -->
+      <div class="av-left">
+        <div class="av-eyebrow">TFM Platform</div>
+        <h2 class="av-title">AeroVenture<br><em>Business Aviation,<br>Simulated.</em></h2>
+        <p class="av-desc">The TFM crew platform for virtual business aviation. Buy jets outright, sign operating leases, accept live charters, and build your own charter empire — all within a real economy that tracks your balance, fleet, and flight history.</p>
+        <div class="av-cta-row">
+          <button class="av-btn-launch" id="av-launch-btn" onclick="openAeroVenture(event)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Launch AeroVenture
+          </button>
+          <a class="av-btn-install" href="https://calm-selkie-133a59.netlify.app" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Install as App
+          </a>
+        </div>
+        <div class="av-feats">
+          <div class="av-feat"><div class="av-feat-icon">✈</div><div><strong>Aircraft Marketplace</strong><span>Buy or lease 9 real business jets — CJ4 to G700</span></div></div>
+          <div class="av-feat"><div class="av-feat-icon">📋</div><div><strong>Live Charter Board</strong><span>15+ charters with full AI mission briefings</span></div></div>
+          <div class="av-feat"><div class="av-feat-icon">📄</div><div><strong>Lease Management</strong><span>Sign operating leases and pay monthly — or fall behind</span></div></div>
+          <div class="av-feat"><div class="av-feat-icon">📖</div><div><strong>Flight Logbook</strong><span>Every completed charter logged with earnings history</span></div></div>
+        </div>
+      </div>
+
+      <!-- Right: mockup -->
+      <div class="av-right">
+        <div class="av-mockup-frame">
+          <div class="av-mockup-bar">
+            <div class="av-dots"><span></span><span></span><span></span></div>
+            <div class="av-url">aeroventure.tfmwebsiteva.netlify.app</div>
+          </div>
+          <div class="av-app-bar">
+            <div class="av-app-brand">AeroVenture</div>
+            <div class="av-app-nav">
+              <div class="av-app-nav-btn on">Dashboard</div>
+              <div class="av-app-nav-btn">Charters</div>
+              <div class="av-app-nav-btn">Market</div>
+              <div class="av-app-nav-btn">Leases</div>
+            </div>
+            <div class="av-app-bal">$4,172,000</div>
+          </div>
+          <div class="av-app-body">
+            <div class="av-app-stats">
+              <div class="av-app-stat"><div class="av-app-stat-l">Balance</div><div class="av-app-stat-v g">$4.17M</div></div>
+              <div class="av-app-stat"><div class="av-app-stat-l">Fleet</div><div class="av-app-stat-v b">3</div></div>
+              <div class="av-app-stat"><div class="av-app-stat-l">Charters</div><div class="av-app-stat-v a">2</div></div>
+              <div class="av-app-stat"><div class="av-app-stat-l">Lease/mo</div><div class="av-app-stat-v">$74K</div></div>
+            </div>
+            <div class="av-app-cols">
+              <div>
+                <div class="av-app-col-hd">My Fleet</div>
+                <div class="av-app-fc"><div class="av-app-fc-reg">N501AV</div><div class="av-app-fc-type">Citation CJ4</div><span class="av-mbadge o">Owned</span></div>
+                <div class="av-app-fc"><div class="av-app-fc-reg">N220TF</div><div class="av-app-fc-type">Phenom 300E</div><span class="av-mbadge l">Leased</span></div>
+              </div>
+              <div>
+                <div class="av-app-col-hd">Active Charters</div>
+                <div class="av-app-cc"><div class="av-app-cc-rt">KTEB → TFFJ</div><div class="av-app-cc-mt">Leisure · 1,480 NM</div><div class="av-app-cc-vl">$55,000</div></div>
+                <div class="av-app-cc"><div class="av-app-cc-rt">EGLL → LEMD</div><div class="av-app-cc-mt">Legal · 773 NM</div><div class="av-app-cc-vl">$42,000</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="av-note">Runs in your browser or installs as a desktop app.<br>Balance &amp; fleet persist across sessions.</div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer>
     <div>
       <div class="fb-name">TOTAL FLIGHT MANAGEMENT INC.</div>
-      <div class="fb-sub">VATSIM Virtual Airline * Teterboro, NJ * Est. 2026</div>
-      <p class="fb-desc">A Part 135 on-demand virtual air carrier operating on VATSIM. Certificated under JDJZ2030, based at KTEB, flying turbojet aircraft worldwide.</p>
-      <div class="fb-badges"><span class="badge-pill">VATSIM</span><span class="badge-pill">FAA Part 135</span><span class="badge-pill">JDJZ2030</span></div>
+      <div class="fb-sub">Virtual Flight Operations * Teterboro, NJ * Est. 2026</div>
+      <p class="fb-desc">A simulated Part 135 on-demand air carrier based at Teterboro, NJ. Certificate No. JDJZ2030 &mdash; operating Dassault Falcon 50 turbojet aircraft on virtual charter flights worldwide.</p>
+      <div class="fb-badges"><span class="badge-pill">Part 135</span><span class="badge-pill">Falcon 50</span><span class="badge-pill">JDJZ2030</span></div>
     </div>
     <div>
       <div class="fc-title">Navigate</div>
@@ -370,20 +496,27 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
         <li><a href="#" onclick="showPage('charter')">Charter Quote</a></li>
         <li><a href="#" onclick="showPage('portal')">Crew Portal</a></li>
         <li><a href="#" onclick="showPage('about')">Join TFM</a></li>
+        <li><a href="#" onclick="openAeroVenture(event)" style="color:var(--maroon-xs);">AeroVenture ↗</a></li>
       </ul>
     </div>
     <div>
       <div class="fc-title">Info</div>
       <ul class="fc-links">
-        <li><a href="#">VATSIM CoC</a></li>
+        
         <li><a href="#">GOM Rev 0</a></li>
         <li><a href="#">Safety Policy</a></li>
         <li><a href="#">Contact Ops</a></li>
       </ul>
     </div>
   </footer>
+  <!-- Disclaimer -->
+  <div style="background:#0A0A0A;border-top:1px solid rgba(255,255,255,.04);padding:20px 60px;">
+    <p style="font-size:10px;font-weight:300;color:var(--g600);line-height:1.7;text-align:center;max-width:900px;margin:0 auto;">
+      <strong style="color:var(--g500);letter-spacing:.05em;">DISCLAIMER:</strong> Total Flight Management is a virtual organization of virtual pilots simulating flight operations using Microsoft Flight Simulator and X-Plane. It is an entirely fictitious hobby based organization, is not an FAA air carrier, does not own, manage or operate any aircraft, and provides no services in any way. This organization exists purely as an entertainment hobby for flight simulation enthusiasts.
+    </p>
+  </div>
   <div class="footer-bot">
-    <span class="fbot-text">&copy; 2026 Total Flight Management Incorporated. VATSIM Virtual Airline. For simulation purposes only.</span>
+    <span class="fbot-text">&copy; 2026 Total Flight Management Incorporated. Virtual Flight Operations. For simulation purposes only.</span>
     <span class="fbot-text">Air Carrier Certificate No. JDJZ2030 * Teterboro FSDO</span>
   </div>
 </div>
@@ -394,7 +527,7 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
   <div class="charter-hero">
     <p class="sec-eyebrow" style="text-align:center;margin-bottom:10px;">Virtual Charter</p>
     <h2 class="charter-title">Instant <em style="font-style:italic;color:rgba(255,255,255,.5);">Charter Quote</em></h2>
-    <p class="charter-sub">AI-powered pricing for your VATSIM flight -- enter any route for an instant estimate.</p>
+    <p class="charter-sub">AI-powered pricing for any route &mdash; enter your origin and destination for an instant estimate.</p>
     <form class="qform" onsubmit="return false;">
       <div class="qgroup"><label class="qlabel">From</label><input class="qinput" id="q-from" placeholder="e.g. KTEB or New York"></div>
       <div class="qgroup"><label class="qlabel">To</label><input class="qinput" id="q-to" placeholder="e.g. KMIA or Miami"></div>
@@ -424,11 +557,11 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
         <div class="sec-eyebrow">Safety & Standards</div>
         <div class="mline"></div>
         <h2 class="sec-title">Safety is Never<br><em>Negotiable</em></h2>
-        <p class="sec-body">Every TFM virtual operation mirrors real-world Part 135 standards. Our VATSIM crews follow actual ATP procedures, CRM protocols, and instrument flight rules.</p>
+        <p class="sec-body">Every TFM virtual operation mirrors real-world Part 135 standards. Our crews follow actual ATP procedures, CRM protocols, and instrument flight rules.</p>
         <ul class="safety-list">
           <li class="sitem"><span class="snum">01</span><div><div class="sitem-title">FAA Part 135 Procedures</div><p class="sitem-text">All operations follow real 14 CFR Part 135 protocols, OpSpecs, and GOM Rev 0.</p></div></li>
           <li class="sitem"><span class="snum">02</span><div><div class="sitem-title">ATP-Rated Virtual Crews</div><p class="sitem-text">Every PIC is trained to ATP standards with full type knowledge for the operated aircraft.</p></div></li>
-          <li class="sitem"><span class="snum">03</span><div><div class="sitem-title">VATSIM ATC Compliance</div><p class="sitem-text">All flights operated on VATSIM under positive ATC control where available.</p></div></li>
+          <li class="sitem"><span class="snum">03</span><div><div class="sitem-title">ATC Compliance</div><p class="sitem-text">All flights operated under positive ATC control where available, following real-world procedures.</p></div></li>
         </ul>
       </div>
       <div class="safety-img reveal">
@@ -459,7 +592,7 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
         </div>
       </div>
       <div class="fleet-card">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='450' viewBox='0 0 600 450'%3E%3Crect width='600' height='450' fill='%231C1C1C'/%3E%3Crect width='600' height='450' fill='url(%23g)'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236B0F1A' stop-opacity='0.3'/%3E%3Cstop offset='1' stop-color='%23111' stop-opacity='0.8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='300' y='200' text-anchor='middle' font-family='Arial' font-size='72' fill='%23333'%3E%E2%9C%88%3C/text%3E%3Ctext x='300' y='260' text-anchor='middle' font-family='Arial' font-size='14' fill='%23555' letter-spacing='4'%3EDASSAULT FALCON 50%3C/text%3E%3C/svg%3E" alt="Falcon 50 N37WX">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='450' viewBox='0 0 600 450'%3E%3Crect width='600' height='450' fill='%231C1C1C'/%3E%3Crect width='600' height='450' fill='url(%23g2)'/%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236B0F1A' stop-opacity='0.3'/%3E%3Cstop offset='1' stop-color='%23111' stop-opacity='0.8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='300' y='200' text-anchor='middle' font-family='Arial' font-size='72' fill='%23333'%3E%E2%9C%88%3C/text%3E%3Ctext x='300' y='260' text-anchor='middle' font-family='Arial' font-size='14' fill='%23555' letter-spacing='4'%3EDASSAULT FALCON 50%3C/text%3E%3C/svg%3E" alt="Falcon 50 N37WX">
         <div class="fleet-overlay">
           <div class="fleet-tag">Dassault Falcon 50</div>
           <div class="fleet-name">N37WX</div>
@@ -471,7 +604,7 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
         </div>
       </div>
       <div class="fleet-card">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='450' viewBox='0 0 600 450'%3E%3Crect width='600' height='450' fill='%231C1C1C'/%3E%3Crect width='600' height='450' fill='url(%23g)'/%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236B0F1A' stop-opacity='0.3'/%3E%3Cstop offset='1' stop-color='%23111' stop-opacity='0.8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='300' y='200' text-anchor='middle' font-family='Arial' font-size='72' fill='%23333'%3E%E2%9C%88%3C/text%3E%3Ctext x='300' y='260' text-anchor='middle' font-family='Arial' font-size='14' fill='%23555' letter-spacing='4'%3EDASSAULT FALCON 50%3C/text%3E%3C/svg%3E" alt="Falcon 50 N111DG">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='450' viewBox='0 0 600 450'%3E%3Crect width='600' height='450' fill='%231C1C1C'/%3E%3Crect width='600' height='450' fill='url(%23g3)'/%3E%3Cdefs%3E%3ClinearGradient id='g3' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236B0F1A' stop-opacity='0.3'/%3E%3Cstop offset='1' stop-color='%23111' stop-opacity='0.8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='300' y='200' text-anchor='middle' font-family='Arial' font-size='72' fill='%23333'%3E%E2%9C%88%3C/text%3E%3Ctext x='300' y='260' text-anchor='middle' font-family='Arial' font-size='14' fill='%23555' letter-spacing='4'%3EDASSAULT FALCON 50%3C/text%3E%3C/svg%3E" alt="Falcon 50 N111DG">
         <div class="fleet-overlay">
           <div class="fleet-tag">Dassault Falcon 50</div>
           <div class="fleet-name">N111DG</div>
@@ -511,7 +644,7 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
         <div class="sec-eyebrow">About TFM</div>
         <div class="mline"></div>
         <h2 class="sec-title">Aviation at the<br><em>Highest Standard</em></h2>
-        <p class="sec-body" style="max-width:100%;">Total Flight Management Incorporated is a VATSIM virtual airline operating as a Part 135 on-demand air carrier. Based at Teterboro Airport (KTEB), we operate turbojet aircraft for virtual charter flights on the VATSIM network.</p>
+        <p class="sec-body" style="max-width:100%;">Total Flight Management Incorporated is a simulated Part 135 on-demand air carrier. Based at Teterboro Airport (KTEB), we operate Dassault Falcon 50 turbojet aircraft on virtual charter flights worldwide.</p>
         <p class="sec-body" style="margin-top:18px;max-width:100%;">Our operations mirror real-world FAA Part 135 standards in every detail -- from dispatch procedures and flight releases, to crew qualifications and safety management. Certificate No. JDJZ2030, certificated by the Teterboro FSDO.</p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;">
           <div style="background:var(--g800);border:1px solid rgba(255,255,255,.07);padding:22px;border-top:2px solid var(--maroon);">
@@ -535,8 +668,8 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
       <div>
         <div style="background:var(--g800);border:1px solid rgba(255,255,255,.07);padding:36px;margin-bottom:24px;">
           <div style="font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--maroon-l);margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.07);">Join TFM as a Virtual Pilot</div>
-          <p style="font-size:13px;font-weight:300;line-height:1.7;color:var(--g400);margin-bottom:20px;">We're looking for VATSIM pilots who take virtual aviation seriously. No casual flying -- TFM operates to real-world standards with proper flight planning, ATC contact, and professional conduct on the network.</p>
-          <p style="font-size:12px;font-weight:300;line-height:1.7;color:var(--g400);margin-bottom:24px;"><strong style="color:var(--white);font-weight:500;">Requirements:</strong> VATSIM Basic rating minimum * Familiarity with IFR procedures * Willingness to fly turbojet aircraft per published procedures * Discord active</p>
+          <p style="font-size:13px;font-weight:300;line-height:1.7;color:var(--g400);margin-bottom:20px;">We're looking for virtual pilots who take flight simulation seriously. No casual flying &mdash; TFM operates to real-world standards with proper flight planning, ATC contact, and professional conduct.</p>
+          <p style="font-size:12px;font-weight:300;line-height:1.7;color:var(--g400);margin-bottom:24px;"><strong style="color:var(--white);font-weight:500;">Requirements:</strong> Familiarity with IFR procedures * Willingness to fly turbojet aircraft per published procedures * Discord active</p>
           <button class="btn-primary" style="width:100%;text-align:center;" onclick="showPage('portal')">Apply via Crew Portal -></button>
         </div>
         <div style="background:var(--g800);border:1px solid rgba(255,255,255,.07);padding:36px;">
@@ -579,6 +712,11 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
             <div class="cform-group" style="margin-bottom:24px;">
               <label class="cform-label">Password</label>
               <input class="cform-input" type="password" id="loginPW" placeholder="--------">
+            </div>
+            <!-- Remember Me -->
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;">
+              <input type="checkbox" id="rememberMe" style="width:14px;height:14px;accent-color:var(--maroon);cursor:pointer;">
+              <label for="rememberMe" style="font-size:11px;font-weight:300;color:var(--g400);cursor:pointer;letter-spacing:.05em;">Remember me on this device</label>
             </div>
             <button class="btn-primary" style="width:100%;text-align:center;border:none;cursor:pointer;" onclick="doLogin()">Sign In</button>
             <p style="font-size:11px;font-weight:300;color:var(--g600);text-align:center;margin-top:16px;">Don't have an account? <a href="#" onclick="switchTab('signup');return false;" style="color:var(--maroon-xs);">Create one -></a></p>
@@ -633,9 +771,13 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
         </div>
 
         <!-- Notifications -->
-        <div class="portal-section-title">Notifications</div>
+        <div class="portal-section-title">Acknowledgements Required</div>
+        <div id="ackArea" style="margin-bottom:32px;">
+          <!-- Ack items rendered by JS -->
+        </div>
+
+        <div class="portal-section-title" style="margin-top:40px;">Notifications</div>
         <div id="notifArea">
-          <div class="notif"><div class="notif-dot"></div><div><div class="notif-text">GOM Rev 0 has been issued. All crew members must review and acknowledge.</div><div class="notif-time">May 24, 2026</div></div></div>
         </div>
 
         <!-- Logbook -->
@@ -1094,7 +1236,7 @@ function doSignUp() {
   if (accounts[identifier]) { errEl.textContent = 'This email is already registered.'; errEl.style.display='block'; return; }
 
   // Save account
-  accounts[identifier] = { name, pw, identifier, type: usingVatsim ? 'vatsim' : 'email', joined: new Date().toISOString().split('T')[0] };
+  accounts[identifier] = { name, pw, identifier, type: 'email', joined: new Date().toISOString().split('T')[0] };
   saveAccounts(accounts);
 
   okEl.textContent = `Welcome aboard, ${name}! Account created. Signing you in...`;
@@ -1136,6 +1278,13 @@ function loginUser(identifier, name) {
   } catch(e) { logbook = []; }
 
   portalUser = { cid: identifier, name };
+
+  // Save session if Remember Me checked
+  const rememberEl = document.getElementById('rememberMe');
+  if (rememberEl && rememberEl.checked) {
+    try { localStorage.setItem('tfm_remembered', JSON.stringify({ cid: identifier, name })); } catch(e) {}
+  }
+
   document.getElementById('portalLogin').style.display = 'none';
   document.getElementById('portalDash').style.display = 'block';
   document.getElementById('pilotName').textContent = name;
@@ -1144,6 +1293,7 @@ function loginUser(identifier, name) {
 
 function doLogout() {
   portalUser = null;
+  localStorage.removeItem('tfm_remembered');
   document.getElementById('portalLogin').style.display = 'block';
   document.getElementById('portalDash').style.display = 'none';
   document.getElementById('loginPW').value = '';
@@ -1164,7 +1314,7 @@ function refreshPortal() {
 
   const tbody = document.getElementById('logbookBody');
   if (logbook.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7" style="color:var(--g600);font-style:italic;padding:20px 14px;">No flights logged yet. Log your first VATSIM flight above!</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" style="color:var(--g600);font-style:italic;padding:20px 14px;">No flights logged yet. Log your first flight above!</td></tr>`;
   } else {
     tbody.innerHTML = logbook.slice().reverse().map(f => `<tr>
       <td>${f.date}</td>
@@ -1173,7 +1323,7 @@ function refreshPortal() {
       <td><strong style="color:var(--white);">${f.arr}</strong></td>
       <td>${f.ac}</td>
       <td style="font-variant-numeric:tabular-nums;">${parseFloat(f.dur).toFixed(1)}h</td>
-      <td><span class="status-badge status-open">VATSIM</span></td>
+      <td><span class="status-badge status-open">Sim</span></td>
     </tr>`).join('');
   }
 }
@@ -1347,32 +1497,177 @@ function handleSimEvent(msg) {
 }
 
 
-// -- VATSIM CONNECT --------------------------------------------------
-function connectVatsim() {
-  // VATSIM OAuth2 Connect
-  // Replace YOUR_CLIENT_ID with your Client ID from auth.vatsim.net
-  // Replace YOUR_REDIRECT_URI with your deployed Netlify URL + /callback
-  const CLIENT_ID    = 'YOUR_CLIENT_ID';
-  const REDIRECT_URI = encodeURIComponent(window.location.origin + '/callback');
-  const SCOPE        = encodeURIComponent('full_name vatsim_details email');
-  const STATE        = Math.random().toString(36).substring(2);
 
-  if (CLIENT_ID === 'YOUR_CLIENT_ID') {
-    alert('VATSIM Connect requires a Client ID.\n\nTo enable:\n1. Go to auth.vatsim.net\n2. Register TFM as an organization\n3. Create an OAuth client\n4. Replace YOUR_CLIENT_ID in the code with your Client ID');
-    return;
-  }
 
-  sessionStorage.setItem('vatsim_state', STATE);
-  const authUrl = `https://auth.vatsim.net/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=${SCOPE}&state=${STATE}`;
-  window.location.href = authUrl;
+// -- ACKNOWLEDGEMENTS -------------------------------------------------------
+const ACK_ITEMS = [
+  {
+    id: 'GOM_Rev0',
+    title: 'General Operations Manual — Rev 0',
+    desc: 'The GOM (Rev 0) has been issued. All crew must read and acknowledge receipt before conducting operations.',
+    date: 'May 24, 2026',
+    type: 'GOM',
+    required: true,
+  },
+  {
+    id: 'MEL_Rev0',
+    title: 'Minimum Equipment List — Rev 0',
+    desc: 'The MEL for the Dassault Falcon 50 (Rev 0) has been issued. All crew must acknowledge prior to dispatch.',
+    date: 'May 24, 2026',
+    type: 'MEL',
+    required: true,
+  },
+  {
+    id: 'SafetyPolicy_v1',
+    title: 'TFM Safety Policy — Version 1',
+    desc: 'Company Safety Policy has been established. Review and acknowledge to confirm understanding.',
+    date: 'May 24, 2026',
+    type: 'Policy',
+    required: true,
+  },
+  {
+    id: 'GOM_Rev1',
+    title: 'General Operations Manual — Rev 1',
+    desc: 'GOM has been updated to Rev 1. Changes include updated crew duty/rest limits and revised emergency procedures. All crew must re-acknowledge before next flight.',
+    date: 'May 25, 2026',
+    type: 'GOM',
+    required: true,
+  },
+];
+
+function getAcks() {
+  if (!portalUser) return {};
+  try {
+    return JSON.parse(localStorage.getItem('tfm_acks_' + portalUser.cid) || '{}');
+  } catch(e) { return {}; }
 }
 
+function saveAck(id) {
+  if (!portalUser) return;
+  const acks = getAcks();
+  acks[id] = new Date().toISOString();
+  localStorage.setItem('tfm_acks_' + portalUser.cid, JSON.stringify(acks));
+  renderAcks();
+  renderNotifs();
+}
+
+function renderAcks() {
+  const area = document.getElementById('ackArea');
+  if (!area) return;
+  if (!portalUser) { area.innerHTML = ''; return; }
+  const acks = getAcks();
+  const pending = ACK_ITEMS.filter(a => !acks[a.id]);
+  const done    = ACK_ITEMS.filter(a =>  acks[a.id]);
+
+  let html = '';
+
+  if (pending.length === 0) {
+    html += `<div style="display:flex;align-items:center;gap:12px;padding:16px 20px;background:rgba(0,120,0,.1);border:1px solid rgba(0,150,0,.25);margin-bottom:8px;">
+      <span style="font-size:18px;color:#6fcf6f;">&#10003;</span>
+      <span style="font-size:12px;font-weight:300;color:#6fcf6f;">All documents acknowledged. You are current.</span>
+    </div>`;
+  } else {
+    pending.forEach(item => {
+      html += `<div style="background:var(--g800);border:1px solid rgba(107,15,26,.5);border-left:3px solid var(--maroon);padding:20px 24px;margin-bottom:8px;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+              <span style="font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--maroon-l);background:rgba(107,15,26,.2);border:1px solid rgba(107,15,26,.4);padding:2px 8px;">${item.type}</span>
+              <span style="font-size:9px;font-weight:300;color:var(--g600);letter-spacing:.1em;">ACKNOWLEDGEMENT REQUIRED</span>
+            </div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--white);margin-bottom:6px;">${item.title}</div>
+            <div style="font-size:11px;font-weight:300;color:var(--g400);margin-bottom:4px;">${item.desc}</div>
+            <div style="font-size:10px;color:var(--g600);">Issued: ${item.date}</div>
+          </div>
+          <button onclick="saveAck('${item.id}')" style="font-family:'Barlow',sans-serif;font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;background:var(--maroon);border:1px solid var(--maroon-l);color:var(--white);padding:10px 20px;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:background .2s;" onmouseover="this.style.background='var(--maroon-l)'" onmouseout="this.style.background='var(--maroon)'">
+            &#10003; I Acknowledge
+          </button>
+        </div>
+      </div>`;
+    });
+  }
+
+  if (done.length > 0) {
+    html += `<div style="margin-top:16px;">
+      <div style="font-size:9px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--g600);margin-bottom:10px;">Completed</div>`;
+    done.forEach(item => {
+      const ts = new Date(acks[item.id]).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+      html += `<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:var(--g900);border:1px solid rgba(255,255,255,.05);margin-bottom:4px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="color:#6fcf6f;font-size:13px;">&#10003;</span>
+          <span style="font-size:11px;font-weight:300;color:var(--g400);">${item.title}</span>
+        </div>
+        <span style="font-size:10px;color:var(--g600);">Ack'd ${ts}</span>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  area.innerHTML = html;
+}
+
+function renderNotifs() {
+  const area = document.getElementById('notifArea');
+  if (!area || !portalUser) return;
+  const acks = getAcks();
+  const pending = ACK_ITEMS.filter(a => !acks[a.id]);
+
+  let html = '';
+  if (pending.length > 0) {
+    html += `<div class="notif"><div class="notif-dot"></div><div><div class="notif-text">${pending.length} document${pending.length > 1 ? 's' : ''} pending acknowledgement &mdash; see Acknowledgements Required above.</div><div class="notif-time">Action required</div></div></div>`;
+  } else {
+    html += `<div class="notif" style="opacity:.5;"><div style="width:8px;height:8px;background:var(--g600);border-radius:50%;flex-shrink:0;margin-top:3px;"></div><div><div class="notif-text">No pending notifications.</div></div></div>`;
+  }
+  area.innerHTML = html;
+}
+
+
+// -- AUTO LOGIN (Remember Me) -----------------------------------------------
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    const saved = localStorage.getItem('tfm_remembered');
+    if (saved) {
+      const sess = JSON.parse(saved);
+      if (sess && sess.cid && sess.name) {
+        try {
+          const lb = localStorage.getItem('tfm_logbook_' + sess.cid);
+          logbook = lb ? JSON.parse(lb) : [];
+        } catch(e) { logbook = []; }
+        portalUser = { cid: sess.cid, name: sess.name };
+        const loginEl = document.getElementById('portalLogin');
+        const dashEl  = document.getElementById('portalDash');
+        const nameEl  = document.getElementById('pilotName');
+        if (loginEl && dashEl && nameEl) {
+          loginEl.style.display = 'none';
+          dashEl.style.display  = 'block';
+          nameEl.textContent    = sess.name;
+          refreshPortal();
+        }
+      }
+    }
+  } catch(e) {}
+});
 
 // -- SCROLL REVEAL ---------------------------------------------------
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── AEROVENTURE LAUNCHER ──────────────────────────
+function openAeroVenture(e) {
+  if (e) e.preventDefault();
+  var avUrl = 'https://calm-selkie-133a59.netlify.app';
+  var w = Math.min(1400, screen.availWidth - 40);
+  var h = Math.min(860, screen.availHeight - 60);
+  var left = Math.round((screen.availWidth - w) / 2);
+  var top  = Math.round((screen.availHeight - h) / 2);
+  window.open(
+    avUrl,
+    'AeroVenture',
+    'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ',menubar=no,toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes'
+  );
+}
 
 </script>
 </body>
