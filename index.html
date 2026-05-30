@@ -214,7 +214,7 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
 .reveal{opacity:1;transform:translateY(0);transition:opacity .7s ease,transform .7s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 
-/* ── AEROVENTURE SECTION ──────────────────────── */
+
 .av-section{background:#0d1117;padding:100px 60px;position:relative;overflow:hidden;border-top:1px solid rgba(107,15,26,.3);}
 .av-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 50%,rgba(107,15,26,.18) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 10% 80%,rgba(29,78,216,.06) 0%,transparent 60%);pointer-events:none;}
 .av-section::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
@@ -225,29 +225,6 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
 .av-title em{font-style:italic;color:rgba(255,255,255,.45);}
 .av-desc{font-size:14px;font-weight:300;line-height:1.8;color:var(--g400);margin-bottom:36px;max-width:440px;}
 .av-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px;}
-.av-btn-launch{display:inline-flex;align-items:center;gap:9px;padding:14px 30px;background:var(--white);color:#0d1117;border:none;font-family:'Barlow',sans-serif;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .2s;}
-.av-btn-launch:hover{background:var(--g100);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
-.av-btn-install{display:inline-flex;align-items:center;gap:9px;padding:14px 28px;background:transparent;color:var(--g200);border:1px solid rgba(255,255,255,.2);font-family:'Barlow',sans-serif;font-size:11px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .2s;}
-.av-btn-install:hover{border-color:rgba(255,255,255,.4);color:#fff;}
-.av-feats{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-.av-feat{display:flex;align-items:flex-start;gap:14px;}
-.av-feat-icon{width:34px;height:34px;background:rgba(107,15,26,.25);border:1px solid rgba(107,15,26,.5);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:2px;}
-.av-feat strong{display:block;font-size:12px;font-weight:600;letter-spacing:.05em;color:var(--g100);margin-bottom:3px;}
-.av-feat span{font-size:11px;font-weight:300;line-height:1.6;color:var(--g400);}
-/* Mockup */
-.av-mockup-frame{background:#1a2235;border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.03),0 32px 80px rgba(0,0,0,.7),0 0 100px rgba(107,15,26,.08);}
-.av-mockup-bar{background:#111827;padding:11px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.06);}
-.av-dots{display:flex;gap:5px;}
-.av-dots span{width:9px;height:9px;border-radius:50%;}
-.av-dots span:nth-child(1){background:#ff5f57;}
-.av-dots span:nth-child(2){background:#febc2e;}
-.av-dots span:nth-child(3){background:#28c840;}
-.av-url{flex:1;background:rgba(255,255,255,.06);border-radius:4px;padding:4px 10px;font-size:10px;color:var(--g400);font-family:monospace;margin:0 10px;}
-.av-app-bar{background:#fff;border-bottom:1px solid #e5e7eb;padding:9px 14px;display:flex;align-items:center;gap:10px;}
-.av-app-brand{font-family:'Cormorant Garamond',serif;font-size:12px;color:#111827;font-weight:600;white-space:nowrap;}
-.av-app-nav{display:flex;gap:2px;flex:1;}
-.av-app-nav-btn{padding:3px 8px;border-radius:3px;font-size:9px;font-weight:500;color:#6b7280;}
-.av-app-nav-btn.on{background:#111827;color:#fff;}
 .av-app-bal{background:#ecfdf5;border:1px solid #6ee7b7;border-radius:20px;padding:3px 8px;font-size:9px;font-weight:700;color:#065f46;white-space:nowrap;}
 .av-app-body{background:#f9fafb;padding:12px 14px;}
 .av-app-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px;}
@@ -282,7 +259,7 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
     <li><a href="#" onclick="showPage('fleet')">Fleet</a></li>
     <li><a href="#" onclick="showPage('charter')">Charter Quote</a></li>
     <li><a href="#" onclick="showPage('about')">About</a></li>
-    <li><a href="#" onclick="openAeroVenture(event)" style="color:var(--maroon-xs)!important;">AeroVenture ↗</a></li>
+
     <li><a href="#" onclick="showPage('portal')" class="nav-portal">Crew Portal</a></li>
     <li><a href="#" onclick="showPage('charter')" class="nav-cta">Request Quote</a></li>
   </ul>
@@ -403,76 +380,8 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
   </section>
 
 
-  <!-- ── AEROVENTURE SECTION ─────────────────────── -->
-  <section class="av-section" id="aeroventure">
-    <div class="av-inner">
 
-      <!-- Left copy -->
-      <div class="av-left">
-        <div class="av-eyebrow">TFM Platform</div>
-        <h2 class="av-title">AeroVenture<br><em>Business Aviation,<br>Simulated.</em></h2>
-        <p class="av-desc">The TFM crew platform for virtual business aviation. Buy jets outright, sign operating leases, accept live charters, and build your own charter empire — all within a real economy that tracks your balance, fleet, and flight history.</p>
-        <div class="av-cta-row">
-          <button class="av-btn-launch" id="av-launch-btn" onclick="openAeroVenture(event)">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            Launch AeroVenture
-          </button>
-          <a class="av-btn-install" href="https://github.com/jdecks15/Total-Flight-Management/releases/latest/download/AeroVenture.Setup.1.0.0.exe" download="AeroVenture.Setup.1.0.0.exe">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download App
-          </a>
-        </div>
-        <div class="av-feats">
-          <div class="av-feat"><div class="av-feat-icon">✈</div><div><strong>Aircraft Marketplace</strong><span>Buy or lease 9 real business jets — CJ4 to G700</span></div></div>
-          <div class="av-feat"><div class="av-feat-icon">📋</div><div><strong>Live Charter Board</strong><span>15+ charters with full AI mission briefings</span></div></div>
-          <div class="av-feat"><div class="av-feat-icon">📄</div><div><strong>Lease Management</strong><span>Sign operating leases and pay monthly — or fall behind</span></div></div>
-          <div class="av-feat"><div class="av-feat-icon">📖</div><div><strong>Flight Logbook</strong><span>Every completed charter logged with earnings history</span></div></div>
-        </div>
-      </div>
 
-      <!-- Right: mockup -->
-      <div class="av-right">
-        <div class="av-mockup-frame">
-          <div class="av-mockup-bar">
-            <div class="av-dots"><span></span><span></span><span></span></div>
-            <div class="av-url">aeroventure.tfmwebsiteva.netlify.app</div>
-          </div>
-          <div class="av-app-bar">
-            <div class="av-app-brand">AeroVenture</div>
-            <div class="av-app-nav">
-              <div class="av-app-nav-btn on">Dashboard</div>
-              <div class="av-app-nav-btn">Charters</div>
-              <div class="av-app-nav-btn">Market</div>
-              <div class="av-app-nav-btn">Leases</div>
-            </div>
-            <div class="av-app-bal">$4,172,000</div>
-          </div>
-          <div class="av-app-body">
-            <div class="av-app-stats">
-              <div class="av-app-stat"><div class="av-app-stat-l">Balance</div><div class="av-app-stat-v g">$4.17M</div></div>
-              <div class="av-app-stat"><div class="av-app-stat-l">Fleet</div><div class="av-app-stat-v b">3</div></div>
-              <div class="av-app-stat"><div class="av-app-stat-l">Charters</div><div class="av-app-stat-v a">2</div></div>
-              <div class="av-app-stat"><div class="av-app-stat-l">Lease/mo</div><div class="av-app-stat-v">$74K</div></div>
-            </div>
-            <div class="av-app-cols">
-              <div>
-                <div class="av-app-col-hd">My Fleet</div>
-                <div class="av-app-fc"><div class="av-app-fc-reg">N501AV</div><div class="av-app-fc-type">Citation CJ4</div><span class="av-mbadge o">Owned</span></div>
-                <div class="av-app-fc"><div class="av-app-fc-reg">N220TF</div><div class="av-app-fc-type">Phenom 300E</div><span class="av-mbadge l">Leased</span></div>
-              </div>
-              <div>
-                <div class="av-app-col-hd">Active Charters</div>
-                <div class="av-app-cc"><div class="av-app-cc-rt">KTEB → TFFJ</div><div class="av-app-cc-mt">Leisure · 1,480 NM</div><div class="av-app-cc-vl">$55,000</div></div>
-                <div class="av-app-cc"><div class="av-app-cc-rt">EGLL → LEMD</div><div class="av-app-cc-mt">Legal · 773 NM</div><div class="av-app-cc-vl">$42,000</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="av-note">Runs in your browser or installs as a desktop app.<br>Balance &amp; fleet persist across sessions.</div>
-      </div>
-
-    </div>
-  </section>
 
   <!-- Footer -->
   <footer>
@@ -496,7 +405,7 @@ footer{background:#0A0A0A;border-top:1px solid rgba(107,15,26,.4);padding:56px 6
         <li><a href="#" onclick="showPage('charter')">Charter Quote</a></li>
         <li><a href="#" onclick="showPage('portal')">Crew Portal</a></li>
         <li><a href="#" onclick="showPage('about')">Join TFM</a></li>
-        <li><a href="#" onclick="openAeroVenture(event)" style="color:var(--maroon-xs);">AeroVenture ↗</a></li>
+
       </ul>
     </div>
     <div>
@@ -1654,20 +1563,7 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ── AEROVENTURE LAUNCHER ──────────────────────────
-function openAeroVenture(e) {
-  if (e) e.preventDefault();
-  var avUrl = 'https://calm-selkie-133a59.netlify.app';
-  var w = Math.min(1400, screen.availWidth - 40);
-  var h = Math.min(860, screen.availHeight - 60);
-  var left = Math.round((screen.availWidth - w) / 2);
-  var top  = Math.round((screen.availHeight - h) / 2);
-  window.open(
-    avUrl,
-    'AeroVenture',
-    'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ',menubar=no,toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes'
-  );
-}
+
 
 
 </script>
